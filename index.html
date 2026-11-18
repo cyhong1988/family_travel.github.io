@@ -1,164 +1,839 @@
 <!DOCTYPE html>
-<html lang="zh-Hant"><head><meta charset="utf-8">
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>大阪京都家族旅行 12/2–12/6</title>
+<title>大阪・京都 家庭旅遊 12/2–12/6</title>
 <style>
-:root{--bg:#fbf5ea;--card:#fffdf8;--ink:#2b2420;--sub:#7a6a5e;--red:#c8372d;--red2:#e86a4a;--line:#eadfce;--chip:#f6e6d0;--ok:#2f8f5b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1816;--card:#26201d;--ink:#f3ebe2;--sub:#b5a698;--red:#ff7a66;--red2:#ff9a6a;--line:#3a312c;--chip:#3a2e26;--ok:#5fcf93;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1c1816;--card:#26201d;--ink:#f3ebe2;--sub:#b5a698;--red:#ff7a66;--red2:#ff9a6a;--line:#3a312c;--chip:#3a2e26;--ok:#5fcf93;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
-.hero{background:linear-gradient(135deg,#c8372d,#f08a4b);color:#fff;padding:34px 20px 26px;text-align:center;border-radius:0 0 28px 28px}
-.hero h1{margin:0;font-size:30px;letter-spacing:2px}
-.hero p{margin:6px 0 0;font-size:17px;opacity:.95}
-.hero .big{font-size:44px}
-.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:8px;overflow-x:auto;padding:12px 14px;border-bottom:1px solid var(--line)}
-.tab{flex:0 0 auto;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:8px 14px;font:inherit;font-size:16px;text-align:center;line-height:1.3}
-.tab b{display:block;font-size:18px}
-.tab.on{background:var(--red);border-color:var(--red);color:#fff}
-main{max-width:720px;margin:0 auto;padding:16px 14px 90px}
-.dayhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 2px 14px}
-.dayhead h2{margin:0;font-size:25px;line-height:1.3}
-.dayhead small{color:var(--sub);font-size:16px;display:block}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 3px 10px rgba(120,70,20,.08);position:relative}
-.card.done{opacity:.55}
-.top{display:flex;gap:12px;align-items:flex-start}
-.ic{font-size:34px;line-height:1}
-.time{display:inline-block;background:var(--chip);color:var(--red);font-weight:700;border-radius:10px;padding:1px 10px;font-size:16px}
-.card h3{margin:4px 0 0;font-size:21px;line-height:1.4}
-.card ul,.card ol{margin:10px 0 4px;padding-left:24px}
-.card li{margin:3px 0}
-.maps{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.map{display:inline-block;background:var(--red);color:#fff;text-decoration:none;border-radius:14px;padding:9px 14px;font-size:16px;font-weight:600}
-.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:6px 12px;font:inherit;font-size:15px}
-.tools{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
-.primary{background:var(--red);color:#fff;border-color:var(--red)}
-.add{width:100%;border:2px dashed var(--red);background:transparent;color:var(--red);border-radius:18px;padding:14px;font:inherit;font-size:19px;font-weight:700}
-.sum{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
-.sum:last-child{border:0}
-.sum b{color:var(--red)}
-.foot{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:22px}
-dialog{border:0;border-radius:22px;padding:18px;width:min(560px,94vw);background:var(--card);color:var(--ink);font:inherit}
-dialog::backdrop{background:rgba(0,0,0,.5)}
-label{display:block;font-weight:700;margin:10px 0 3px;font-size:16px}
-input,textarea{width:100%;font:inherit;font-size:17px;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
-textarea{min-height:90px}
-.hint{font-size:14px;color:var(--sub);font-weight:400}
-.row{display:flex;gap:10px}.row>div{flex:1}.row>div:first-child{flex:.8}
-.acts{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
-.warn{color:#c0392b}
-</style></head><body>
-<header class="hero"><div class="big">⛩️🗼🦀</div><h1>大阪・京都 家族旅行</h1><p>12/2（三）– 12/6（日）｜5 天 4 夜</p></header>
+:root {
+  --bg: #faf6f0;
+  --bg-glass: rgba(250, 246, 240, 0.88);
+  --card: #ffffff;
+  --ink: #2c2420;
+  --sub: #7a6b60;
+  --red: #c8372d;
+  --red-light: #fdf0ee;
+  --gold: #d98a2b;
+  --line: #eadfd3;
+  --chip: #f7e8d6;
+  --ok: #2e8b57;
+  --shadow: 0 6px 20px rgba(80, 45, 15, 0.06);
+  --shadow-hover: 0 10px 26px rgba(80, 45, 15, 0.11);
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #181513;
+    --bg-glass: rgba(24, 21, 19, 0.88);
+    --card: #241f1c;
+    --ink: #f4ede6;
+    --sub: #a8998c;
+    --red: #ff7360;
+    --red-light: #382320;
+    --gold: #f0a848;
+    --line: #382f2a;
+    --chip: #362a22;
+    --ok: #5cd691;
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+    --shadow-hover: 0 10px 26px rgba(0, 0, 0, 0.4);
+    color-scheme: dark;
+  }
+}
+
+html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.65 "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  transition: background 0.25s ease;
+}
+
+/* 編輯模式全域視覺提示 */
+body.is-editing {
+  box-shadow: inset 0 0 0 3px var(--red);
+}
+
+/* 頂部主視覺 */
+.hero {
+  background: linear-gradient(135deg, #b82921 0%, #d94a38 55%, #eb8646 100%);
+  color: #fff;
+  padding: 36px 20px 30px;
+  text-align: center;
+  border-radius: 0 0 32px 32px;
+  box-shadow: 0 8px 24px rgba(184, 41, 33, 0.22);
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 15%, rgba(255,255,255,0.16), transparent 45%);
+  pointer-events: none;
+}
+.hero .big {
+  font-size: 40px;
+  letter-spacing: 6px;
+  margin-bottom: 4px;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
+}
+.hero h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+.hero p {
+  margin: 8px 0 0;
+  font-size: 15px;
+  opacity: 0.92;
+  background: rgba(0, 0, 0, 0.16);
+  display: inline-block;
+  padding: 3px 14px;
+  border-radius: 20px;
+}
+
+/* 導覽列 */
+.tabs {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  flex: 0 0 auto;
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  border-radius: 16px;
+  padding: 8px 15px;
+  font: inherit;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.tab:active { transform: scale(0.96); }
+.tab b { display: block; font-size: 16px; margin-bottom: 1px; }
+.tab.on {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(200, 55, 45, 0.28);
+}
+
+/* 主內容區 */
+main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 20px 16px 110px;
+}
+
+/* 單日標題區 */
+.dayhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 4px 4px 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--line);
+}
+.dayhead small {
+  color: var(--red);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 2px;
+}
+.dayhead h2 {
+  margin: 0;
+  font-size: 23px;
+  line-height: 1.35;
+}
+
+/* 時間軸容器 */
+.timeline {
+  position: relative;
+  padding-left: 24px;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 18px;
+  bottom: 24px;
+  width: 2.5px;
+  background: linear-gradient(to bottom, var(--red), var(--gold), var(--line));
+  border-radius: 2px;
+}
+
+/* 行程卡片 */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 18px 18px 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  position: relative;
+  transition: all 0.25s ease;
+}
+.timeline .card::before {
+  content: "";
+  position: absolute;
+  left: -22px;
+  top: 24px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 3px solid var(--red);
+  box-shadow: 0 0 0 3px var(--bg);
+  z-index: 1;
+}
+.card.done {
+  opacity: 0.58;
+  background: var(--bg);
+}
+.timeline .card.done::before {
+  border-color: var(--ok);
+  background: var(--ok);
+}
+
+.top {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.ic {
+  font-size: 32px;
+  line-height: 1.1;
+  background: var(--bg);
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+}
+.time {
+  display: inline-block;
+  background: var(--chip);
+  color: var(--red);
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 2px 10px;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.card h3 {
+  margin: 2px 0 0;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+/* 備註列表 */
+.notes-box {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 16px;
+}
+.notes-box ul, .notes-box ol {
+  margin: 4px 0 0;
+  padding-left: 22px;
+}
+.notes-box li { margin: 4px 0; }
+.notes-box div { margin-bottom: 4px; font-weight: 600; color: var(--sub); }
+
+/* 地圖按鈕 */
+.maps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.map {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--red-light);
+  color: var(--red);
+  border: 1px solid rgba(200, 55, 45, 0.25);
+  text-decoration: none;
+  border-radius: 12px;
+  padding: 7px 13px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.18s ease;
+}
+.map:hover, .map:active {
+  background: var(--red);
+  color: #fff;
+}
+
+/* 完成勾選按鈕 */
+.check-btn {
+  border: 1.5px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+.card.done .check-btn {
+  background: var(--ok);
+  border-color: var(--ok);
+  color: #fff;
+}
+
+/* 通用按鈕與編輯工具列 */
+.btn {
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 7px 13px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn:active { transform: scale(0.96); }
+.primary { background: var(--red); color: #fff; border-color: var(--red); }
+.warn { color: #c0392b; border-color: rgba(192, 57, 43, 0.3); }
+
+.tools {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  border-top: 1px dashed var(--line);
+  padding-top: 12px;
+}
+
+.add {
+  width: 100%;
+  border: 2px dashed var(--red);
+  background: var(--red-light);
+  color: var(--red);
+  border-radius: 18px;
+  padding: 14px;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+/* 總覽頁專屬樣式 */
+.progress-wrap {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--sub);
+}
+.progress-bar {
+  height: 8px;
+  background: var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.sum-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.sum-card:active { transform: scale(0.98); }
+.sum-badge {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--red);
+  background: var(--chip);
+  padding: 2px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+.sum-title { font-weight: 700; font-size: 18px; line-height: 1.35; }
+.sum-arrow { margin-left: auto; color: var(--sub); font-size: 18px; }
+
+.foot {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--line);
+}
+
+/* 右下角懸浮「編輯模式」切換鈕 */
+.fab-edit {
+  position: fixed;
+  right: 18px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.fab-edit:active { transform: scale(0.95); }
+.fab-edit.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+  box-shadow: 0 6px 22px rgba(200, 55, 45, 0.4);
+}
+
+/* 編輯模式控制顯示/隱藏 */
+.edit-only { display: none !important; }
+body.is-editing .edit-only { display: flex !important; }
+body.is-editing button.edit-only { display: inline-flex !important; }
+body.is-editing button.add.edit-only { display: block !important; }
+
+/* 彈窗表單 */
+dialog {
+  border: 0;
+  border-radius: 24px;
+  padding: 22px;
+  width: min(540px, 92vw);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+dialog::backdrop { background: rgba(0, 0, 0, 0.55); backdrop-filter: blur(3px); }
+label { display: block; font-weight: 700; margin: 12px 0 4px; font-size: 15px; }
+input, textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 16px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+}
+input:focus, textarea:focus { outline: none; border-color: var(--red); }
+textarea { min-height: 92px; }
+.hint { font-size: 13px; color: var(--sub); font-weight: 400; }
+.row { display: flex; gap: 10px; }
+.row > div { flex: 1; }
+.row > div:first-child { flex: 0.65; }
+.acts { display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="big">⛩️🗼🦀</div>
+  <h1>大阪・京都 家族旅行</h1>
+  <p>12/2（三）– 12/6（日）｜5 天 4 夜</p>
+</header>
+
 <nav class="tabs" id="tabs"></nav>
 <main id="main"></main>
 
+<button class="fab-edit" id="toggleEdit">✏️ 編輯模式</button>
 <dialog id="dlg"><div id="dlgbody"></div></dialog>
 
 <script>
-const KEY="osaka-trip-v2";
-const M=q=>({label:"",q});
-const DEF=[
-{id:"d1",date:"12/2（三）",title:"大阪抵達・道頓堀・和牛燒肉",emoji:"✈️",items:[
- {id:"a1",time:"約 15:00",icon:"🛬",title:"大阪抵達",notes:"抵達大阪，前往天下茶屋民宿",maps:[]},
- {id:"a2",time:"17:00–19:00",icon:"🌃",title:"道頓堀夜遊",notes:"逛道頓堀，看固力果跑跑人",maps:[{label:"道頓堀",q:"道頓堀 大阪"}]},
- {id:"a3",time:"19:30",icon:"🥩",title:"晚餐：和牛燒肉＋帝王蟹",notes:"",maps:[]}]},
-{id:"d2",date:"12/3（四）",title:"大阪城・水上觀光船・會席料理",emoji:"🏯",items:[
- {id:"b1",time:"12:00",icon:"🍜",title:"午餐：一蘭拉麵",notes:"（若蟹道樂改排 12/3，則取代此餐）",maps:[]},
- {id:"b2",time:"13:30–16:00",icon:"🏯",title:"大阪城",notes:"",maps:[{label:"大阪城",q:"大阪城"}]},
- {id:"b3",time:"16:30–17:30",icon:"🚤",title:"水上觀光船",notes:"",maps:[]},
- {id:"b4",time:"18:30",icon:"🍱",title:"晚餐：會席料理",notes:"",maps:[]}]},
-{id:"d3",date:"12/4（五）",title:"京都一日遊",emoji:"⛩️",items:[
- {id:"c1",time:"09:00–18:00",icon:"⛩️",title:"京都自由觀光",notes:"前往京都各景點遊覽\n依照當天安排享用午餐及晚餐\n晚上返回大阪民宿休息",maps:[{label:"京都市",q:"京都市 日本"}]}]},
-{id:"d4",date:"12/5（六）",title:"本町海鮮丼・心齋橋購物・爐端燒",emoji:"🛍️",items:[
- {id:"e1",time:"11:30",icon:"🐟",title:"午餐：生鮪魚海鮮丼",notes:"從天下茶屋站搭地鐵前往本町站\n海鮮丼まぐろ丸 本店\n品嚐新鮮生鮪魚及海鮮丼",maps:[{label:"まぐろ丸 本店",q:"海鮮丼まぐろ丸 本店 大阪"}]},
- {id:"e2",time:"13:00–17:30",icon:"🛍️",title:"心齋橋、難波購物",notes:"沿途一路往南逛：\n1. 心齋橋筋商店街\n2. 大丸心齋橋百貨\n3. 心齋橋 PARCO\n4. 道頓堀\n5. 難波商圈",maps:[{label:"心齋橋筋商店街",q:"心斎橋筋商店街"},{label:"大丸心齋橋",q:"大丸心斎橋店"},{label:"心齋橋 PARCO",q:"心斎橋PARCO"},{label:"道頓堀",q:"道頓堀 大阪"},{label:"難波商圈",q:"難波 大阪"}]},
- {id:"e3",time:"15:30–16:30",icon:"🦀",title:"蟹道樂（二選一）",notes:"方案 A：前往蟹道樂道頓堀本店，作為下午的豪華正餐\n方案 B：移至 12/3 午餐，取代一蘭拉麵，12/5 保留胃口給海鮮丼及爐端燒",maps:[{label:"蟹道樂 道頓堀本店",q:"かに道楽 道頓堀本店"}]},
- {id:"e4",time:"19:30",icon:"🍣",title:"晚餐：爐端燒＋壽司",notes:"寿し炉端喜多郎寿し 道具屋筋横丁店\n體驗現烤爐端燒及日式壽司\n位於千日前道具屋筋商店街內\n用餐後從難波站搭南海電鐵返回天下茶屋民宿",maps:[{label:"喜多郎壽司",q:"喜多郎寿し 道具屋筋横丁店"}]}]},
-{id:"d5",date:"12/6（日）",title:"返台",emoji:"🛫",items:[
- {id:"f1",time:"約 08:00",icon:"🧳",title:"整理行李、退房",notes:"搭乘預約交通前往關西國際機場",maps:[]},
- {id:"f2",time:"約 10:00",icon:"✈️",title:"關西國際機場",notes:"辦理登機手續，搭機返回台灣",maps:[{label:"關西國際機場",q:"関西国際空港"}]}]}
-];
-let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
-if(!S||!S.days)S={days:JSON.parse(JSON.stringify(DEF)),done:{}};
-let cur="sum";
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const uid=()=>"x"+Math.random().toString(36).slice(2,9);
-const $=id=>document.getElementById(id);
-const url=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
+const KEY = "osaka-trip-v7";
+const INN = {
+  label: "民宿：大阪民泊【山也居】",
+  q: "大阪民泊【山也居】 2 Chome-14-30 Tengachayahigashi, Nishinari Ward, Osaka"
+};
 
-function notesHTML(n){
-  const L=n.split("\n").filter(x=>x.trim());if(!L.length)return"";
-  if(L.every(x=>/^\d+\.\s/.test(x)||/：$/.test(x)||true)&&L.some(x=>/^\d+\.\s/.test(x))){
-    const head=L.filter(x=>!/^\d+\.\s/.test(x)).map(x=>`<div>${esc(x)}</div>`).join("");
-    return head+"<ol>"+L.filter(x=>/^\d+\.\s/.test(x)).map(x=>`<li>${esc(x.replace(/^\d+\.\s*/,""))}</li>`).join("")+"</ol>";
-  }
-  return"<ul>"+L.map(x=>`<li>${esc(x)}</li>`).join("")+"</ul>";
+const DEF = [
+  {id:"d1",date:"12/2（三）",title:"大阪抵達・道頓堀・和牛燒肉",emoji:"✈️",items:[
+    {id:"a1",time:"約 15:00",icon:"🛬",title:"大阪抵達・前往山也居辦理入住",notes:"抵達關西機場後，搭乘南海電鐵至天下茶屋站，步行前往「大阪民泊【山也居】」辦理入住\n地址：大阪市西成區天下茶屋東 2-14-30",maps:[
+      INN,
+      {label:"南海電鐵 天下茶屋站",q:"天下茶屋駅 大阪"}
+    ]},
+    {id:"a2",time:"17:00–19:00",icon:"🌃",title:"道頓堀夜遊",notes:"逛道頓堀商圈，與固力果跑跑人看板合照",maps:[
+      {label:"道頓堀",q:"道頓堀 大阪"},
+      {label:"固力果跑跑人看板",q:"道頓堀グリコサイン"}
+    ]},
+    {id:"a3",time:"19:30",icon:"🥩",title:"晚餐：燒肉屋 大牧場 道頓堀店",notes:"享用日本國產和牛燒肉＋帝王蟹大餐\n地址：大阪市中央區道頓堀 1-6-15 コムラード・ドウトンビル 5F",maps:[
+      {label:"燒肉屋 大牧場 道頓堀店",q:"燒肉屋 大牧場 道頓堀店 Osaka"}
+    ]}
+  ]},
+  {id:"d2",date:"12/3（四）",title:"大阪城・水上觀光船・會席料理",emoji:"🏯",items:[
+    {id:"b1",time:"12:00",icon:"🍜",title:"午餐：一蘭拉麵",notes:"（若蟹道樂改排 12/3，則取代此餐）",maps:[
+      {label:"一蘭拉麵 道頓堀店本館",q:"一蘭 道頓堀店本館"}
+    ]},
+    {id:"b2",time:"13:30–16:00",icon:"🏯",title:"大阪城",notes:"參觀大阪城天守閣與大阪城公園",maps:[
+      {label:"大阪城天守閣",q:"大阪城天守閣"}
+    ]},
+    {id:"b3",time:"16:30–17:30",icon:"🚤",title:"水上觀光船",notes:"搭乘大阪水上巴士（Aqua-Liner）遊覽大川沿岸風光",maps:[
+      {label:"大阪城港（水上巴士乘船處）",q:"大阪城港 大阪水上バス"}
+    ]},
+    {id:"b4",time:"18:30",icon:"🍱",title:"晚餐：心齋橋禪園（會席料理）",notes:"品嚐精緻日式傳統會席料理\n地址：大阪市中央區西心齋橋 1-3-3 オー・エム・ホテル日航ビル B2F",maps:[
+      {label:"心齋橋禪園",q:"心齋橋禪園 Osaka"}
+    ]}
+  ]},
+  {id:"d3",date:"12/4（五）",title:"京都一日遊",emoji:"⛩️",items:[
+    {id:"c1",time:"09:00–18:00",icon:"⛩️",title:"京都自由觀光",notes:"前往京都各景點遊覽（可點擊下方熱門景點直接導航）\n依照當天安排享用午餐及晚餐\n晚上返回「大阪民泊【山也居】」休息",maps:[
+      {label:"京都市",q:"京都市 日本"},
+      {label:"清水寺",q:"清水寺 京都"},
+      {label:"伏見稻荷大社",q:"伏見稲荷大社 京都"},
+      {label:"嵐山渡月橋",q:"渡月橋 京都"},
+      {label:"錦市場",q:"錦市場 京都"},
+      INN
+    ]}
+  ]},
+  {id:"d4",date:"12/5（六）",title:"本町海鮮丼・心齋橋購物・爐端燒",emoji:"🛍️",items:[
+    {id:"e1",time:"11:30",icon:"🐟",title:"午餐：生鮪魚海鮮丼",notes:"從天下茶屋站搭地鐵前往本町站\n海鮮丼まぐろ丸 本店\n品嚐新鮮生鮪魚及海鮮丼",maps:[
+      {label:"まぐろ丸 本店",q:"海鮮丼まぐろ丸 本店 大阪"}
+    ]},
+    {id:"e2",time:"13:00–17:30",icon:"🛍️",title:"心齋橋、難波購物",notes:"沿途一路往南逛：\n1. 心齋橋筋商店街\n2. 大丸心齋橋百貨\n3. 心齋橋 PARCO\n4. 道頓堀\n5. 難波商圈",maps:[
+      {label:"心齋橋筋商店街",q:"心斎橋筋商店街"},
+      {label:"大丸心齋橋",q:"大丸心斎橋店"},
+      {label:"心齋橋 PARCO",q:"心斎橋PARCO"},
+      {label:"道頓堀",q:"道頓堀 大阪"},
+      {label:"難波商圈",q:"難波 大阪"}
+    ]},
+    {id:"e3",time:"15:30–16:30",icon:"🦀",title:"蟹道樂（二選一）",notes:"方案 A：前往蟹道樂道頓堀本店，作為下午的豪華正餐\n方案 B：移至 12/3 午餐，取代一蘭拉麵，12/5 保留胃口給海鮮丼及爐端燒",maps:[
+      {label:"蟹道樂 道頓堀本店",q:"かに道楽 道頓堀本店"}
+    ]},
+    {id:"e4",time:"19:30",icon:"🍣",title:"晚餐：爐端燒＋壽司",notes:"寿し炉端喜多郎寿し 道具屋筋横丁店\n體驗現烤爐端燒及日式壽司\n位於千日前道具屋筋商店街內\n用餐後從難波站搭南海電鐵返回「大阪民泊【山也居】」",maps:[
+      {label:"喜多郎壽司",q:"喜多郎寿し 道具屋筋横丁店"},
+      {label:"南海電鐵 難波站",q:"南海難波駅"},
+      INN
+    ]}
+  ]},
+  {id:"d5",date:"12/6（日）",title:"返台（12:20 起飛 → 14:40 抵台）",emoji:"🛫",items:[
+    {id:"f1",time:"08:45",icon:"🚐",title:"退房・預約機場接送出發",notes:"08:45 於「大阪民泊【山也居】」門口集合上車\n搭乘預約專車直達關西國際機場（車程約 45–50 分鐘）",maps:[
+      INN
+    ]},
+    {id:"f2",time:"約 09:45–12:20",icon:"🛂",title:"關西國際機場・報到與免稅店採買",notes:"辦理登機報到、行李托運與出境安檢\n免稅店最後採買伴手禮，準備登機",maps:[
+      {label:"關西國際機場",q:"関西国際空港"}
+    ]},
+    {id:"f3",time:"12:20–14:40",icon:"✈️",title:"搭機返台（14:40 抵達台灣）",notes:"12:20 關西國際機場起飛\n14:40 平安抵達台灣，結束愉快的關西家族旅行",maps:[]}
+  ]}
+];
+
+let S;
+try { S = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+if (!S || !S.days) S = { days: JSON.parse(JSON.stringify(DEF)), done: {} };
+
+let cur = "sum";
+let isEditing = false;
+
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const uid = () => "x" + Math.random().toString(36).slice(2, 9);
+const $ = id => document.getElementById(id);
+const url = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+
+function toggleEditMode() {
+  isEditing = !isEditing;
+  document.body.classList.toggle("is-editing", isEditing);
+  const btn = $("toggleEdit");
+  btn.classList.toggle("active", isEditing);
+  btn.innerHTML = isEditing ? "✅ 完成編輯" : "✏️ 編輯模式";
 }
-function render(){
-  $("tabs").innerHTML=`<button class="tab ${cur==="sum"?"on":""}" data-t="sum"><b>📋</b>總覽</button>`+
-   S.days.map((d,i)=>`<button class="tab ${cur===d.id?"on":""}" data-t="${d.id}"><b>${esc(d.emoji)} D${i+1}</b>${esc(d.date.split("（")[0])}</button>`).join("")+
-   `<button class="tab" data-t="+"><b>＋</b>加一天</button>`;
-  const m=$("main");
-  if(cur==="sum"){
-    m.innerHTML=`<div class="card"><h3 style="margin:0 0 6px">行程重點總整理</h3>`+
-    S.days.map((d,i)=>`<div class="sum" data-go="${d.id}" style="cursor:pointer"><span class="ic">${esc(d.emoji)}</span><div><b>${esc(d.date)}</b><br>${esc(d.title)}</div></div>`).join("")+`</div>
-    <div class="foot"><button class="btn" id="exp">⬇️ 備份行程</button><button class="btn" id="imp">⬆️ 還原備份</button><button class="btn" id="rst">↩️ 恢復原始行程</button></div>
-    <p style="text-align:center;color:var(--sub);font-size:14px">修改只會儲存在這支手機／瀏覽器</p>`;
+
+function notesHTML(n) {
+  const L = n.split("\n").filter(x => x.trim());
+  if (!L.length) return "";
+  let inner = "";
+  if (L.some(x => /^\d+\.\s/.test(x))) {
+    const head = L.filter(x => !/^\d+\.\s/.test(x)).map(x => `<div>${esc(x)}</div>`).join("");
+    inner = head + "<ol>" + L.filter(x => /^\d+\.\s/.test(x)).map(x => `<li>${esc(x.replace(/^\d+\.\s*/, ""))}</li>`).join("") + "</ol>";
+  } else {
+    inner = "<ul>" + L.map(x => `<li>${esc(x)}</li>`).join("") + "</ul>";
+  }
+  return `<div class="notes-box">${inner}</div>`;
+}
+
+function render() {
+  $("tabs").innerHTML =
+    `<button class="tab ${cur === "sum" ? "on" : ""}" data-t="sum"><b>📋</b>總覽</button>` +
+    S.days.map((d, i) => `<button class="tab ${cur === d.id ? "on" : ""}" data-t="${d.id}"><b>${esc(d.emoji)} D${i + 1}</b>${esc(d.date.split("（")[0])}</button>`).join("") +
+    `<button class="tab edit-only" data-t="+" style="border-style:dashed;color:var(--red)"><b>＋</b>加一天</button>`;
+
+  const m = $("main");
+  if (cur === "sum") {
+    const totalItems = S.days.reduce((acc, d) => acc + d.items.length, 0);
+    const doneItems = S.days.reduce((acc, d) => acc + d.items.filter(it => S.done[it.id]).length, 0);
+    const pct = totalItems ? Math.round((doneItems / totalItems) * 100) : 0;
+
+    m.innerHTML = `
+      <div class="progress-wrap">
+        <div class="progress-top">
+          <span>旅程打卡進度</span>
+          <span>${doneItems} / ${totalItems} 項 (${pct}%)</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      </div>
+      <div class="sum-card" style="cursor:default">
+        <div class="ic">🏠</div>
+        <div style="flex:1">
+          <span class="sum-badge">全程住宿</span>
+          <div class="sum-title">大阪民泊【山也居】</div>
+          <div style="font-size:13px;color:var(--sub);margin-top:2px">大阪市西成區天下茶屋東 2-14-30</div>
+          <div class="maps" style="margin-top:8px">
+            <a class="map" target="_blank" rel="noopener" href="${esc(url(INN.q))}">📍 開啟民宿 Google 地圖</a>
+          </div>
+        </div>
+      </div>
+      ` +
+      S.days.map((d, i) => `
+        <div class="sum-card" data-go="${d.id}">
+          <div class="ic">${esc(d.emoji)}</div>
+          <div>
+            <span class="sum-badge">DAY ${i + 1}・${esc(d.date)}</span>
+            <div class="sum-title">${esc(d.title)}</div>
+          </div>
+          <div class="sum-arrow">›</div>
+        </div>
+      `).join("") +
+      `
+      <div class="foot edit-only">
+        <button class="btn" id="exp">⬇️ 備份行程</button>
+        <button class="btn" id="imp">⬆️ 還原備份</button>
+        <button class="btn warn" id="rst">↩️ 恢復原始行程</button>
+      </div>
+      <p class="edit-only" style="justify-content:center;color:var(--sub);font-size:13px;margin-top:8px">目前為編輯模式，所有修改自動儲存在本機瀏覽器</p>
+    `;
     return;
   }
-  const di=S.days.findIndex(d=>d.id===cur);if(di<0){cur="sum";return render()}
-  const d=S.days[di];
-  m.innerHTML=`<div class="dayhead"><div><small>Day ${di+1}｜${esc(d.date)}</small><h2>${esc(d.emoji)} ${esc(d.title)}</h2></div><button class="btn" id="ed">✏️ 改</button></div>`+
-  d.items.map((it,i)=>`<div class="card ${S.done[it.id]?"done":""}" data-i="${i}">
-   <div class="top"><div class="ic">${esc(it.icon)}</div><div style="flex:1">${it.time?`<span class="time">${esc(it.time)}</span>`:""}<h3>${esc(it.title)}</h3></div>
-   <button class="btn" data-a="done" title="完成">${S.done[it.id]?"✅":"⬜"}</button></div>
-   ${notesHTML(it.notes)}
-   ${it.maps.length?`<div class="maps">${it.maps.map(x=>`<a class="map" target="_blank" rel="noopener" href="${esc(url(x.q))}">📍 ${esc(x.label||it.title)}</a>`).join("")}</div>`:""}
-   <div class="tools"><button class="btn" data-a="up">⬆️</button><button class="btn" data-a="dn">⬇️</button><button class="btn" data-a="edit">✏️ 編輯</button><button class="btn warn" data-a="del">🗑️</button></div></div>`).join("")+
-  `<button class="add" id="addi">＋ 新增行程</button>`;
-}
-function itemForm(it,cb){
-  const mp=it.maps.map(x=>(x.label?x.label+"|":"")+x.q).join("\n");
-  $("dlgbody").innerHTML=`<h2 style="margin:0">${it.title?"編輯行程":"新增行程"}</h2>
-  <div class="row"><div><label>圖示</label><input id="f_i" value="${esc(it.icon||"📌")}"></div><div><label>時間</label><input id="f_t" value="${esc(it.time)}" placeholder="例：11:30"></div></div>
-  <label>標題</label><input id="f_n" value="${esc(it.title)}">
-  <label>內容 <span class="hint">一行一項</span></label><textarea id="f_o">${esc(it.notes)}</textarea>
-  <label>地圖 <span class="hint">一行一個：按鈕名稱|搜尋地點（名稱可省略）</span></label><textarea id="f_m">${esc(mp)}</textarea>
-  <div class="acts"><button class="btn" id="cx">取消</button><button class="btn primary" id="ok">儲存</button></div>`;
-  $("dlg").showModal();$("cx").onclick=()=>$("dlg").close();
-  $("ok").onclick=()=>{cb({icon:$("f_i").value||"📌",time:$("f_t").value.trim(),title:$("f_n").value.trim()||"（未命名）",notes:$("f_o").value,
-   maps:$("f_m").value.split("\n").map(s=>s.trim()).filter(Boolean).map(s=>{const p=s.split("|");return p.length>1?{label:p[0].trim(),q:p.slice(1).join("|").trim()}:{label:"",q:s}})});
-   save();$("dlg").close();render()};
-}
-function dayForm(d,isNew){
-  $("dlgbody").innerHTML=`<h2 style="margin:0">${isNew?"新增一天":"編輯這一天"}</h2>
-  <div class="row"><div><label>圖示</label><input id="g_e" value="${esc(d.emoji)}"></div><div><label>日期</label><input id="g_d" value="${esc(d.date)}"></div></div>
-  <label>標題</label><input id="g_t" value="${esc(d.title)}">
-  <div class="acts">${isNew?"":`<button class="btn warn" id="gdel">刪除這天</button>`}<button class="btn" id="cx">取消</button><button class="btn primary" id="ok">儲存</button></div>`;
-  $("dlg").showModal();$("cx").onclick=()=>$("dlg").close();
-  if(!isNew)$("gdel").onclick=()=>{if(confirm("確定刪除整天行程？")){S.days=S.days.filter(x=>x!==d);cur="sum";save();$("dlg").close();render()}};
-  $("ok").onclick=()=>{d.emoji=$("g_e").value||"📅";d.date=$("g_d").value;d.title=$("g_t").value||"新的一天";if(isNew){S.days.push(d);cur=d.id}save();$("dlg").close();render()};
-}
-document.addEventListener("click",e=>{
-  const t=e.target.closest("[data-t]");
-  if(t){if(t.dataset.t==="+")dayForm({id:uid(),date:"",title:"",emoji:"📅",items:[]},true);else{cur=t.dataset.t;render();scrollTo(0,0)}return}
-  const g=e.target.closest("[data-go]");if(g){cur=g.dataset.go;render();scrollTo(0,0);return}
-  const d=S.days.find(x=>x.id===cur);
-  if(e.target.id==="ed")return dayForm(d,false);
-  if(e.target.id==="addi")return itemForm({icon:"📌",time:"",title:"",notes:"",maps:[]},v=>d.items.push({id:uid(),...v}));
-  const a=e.target.closest("[data-a]");
-  if(a&&d){const i=+a.closest(".card").dataset.i,it=d.items[i],k=a.dataset.a;
-    if(k==="done"){S.done[it.id]=!S.done[it.id];save();render()}
-    else if(k==="edit")itemForm(it,v=>Object.assign(it,v));
-    else if(k==="del"){if(confirm("確定刪除「"+it.title+"」？")){d.items.splice(i,1);save();render()}}
-    else{const j=k==="up"?i-1:i+1;if(j>=0&&j<d.items.length){[d.items[i],d.items[j]]=[d.items[j],d.items[i]];save();render()}}}
-  if(e.target.id==="rst"&&confirm("所有修改都會消失，確定恢復？")){S={days:JSON.parse(JSON.stringify(DEF)),done:{}};save();render()}
-  if(e.target.id==="exp"){$("dlgbody").innerHTML=`<h2 style="margin:0">備份</h2><p>複製下面文字，貼到記事本或傳給家人。</p><textarea id="bx" style="min-height:200px">${esc(JSON.stringify(S))}</textarea><div class="acts"><button class="btn primary" id="cx">關閉</button></div>`;$("dlg").showModal();$("cx").onclick=()=>$("dlg").close()}
-  if(e.target.id==="imp"){$("dlgbody").innerHTML=`<h2 style="margin:0">還原備份</h2><p>貼上之前複製的備份文字。</p><textarea id="bx" style="min-height:200px"></textarea><div class="acts"><button class="btn" id="cx">取消</button><button class="btn primary" id="ok">還原</button></div>`;$("dlg").showModal();$("cx").onclick=()=>$("dlg").close();
-    $("ok").onclick=()=>{try{const n=JSON.parse($("bx").value);if(!n.days)throw 0;S=n;save();$("dlg").close();render()}catch(_){alert("格式不正確")}}}
-});
-render();
-</script></body></html>
 
+  const di = S.days.findIndex(d => d.id === cur);
+  if (di < 0) { cur = "sum"; return render(); }
+  const d = S.days[di];
+
+  m.innerHTML = `
+    <div class="dayhead">
+      <div>
+        <small>DAY ${di + 1} ｜ ${esc(d.date)}</small>
+        <h2>${esc(d.emoji)} ${esc(d.title)}</h2>
+      </div>
+      <button class="btn edit-only" id="ed">✏️ 修改標題</button>
+    </div>
+    <div class="timeline">
+      ${d.items.map((it, i) => `
+        <div class="card ${S.done[it.id] ? "done" : ""}" data-i="${i}">
+          <div class="top">
+            <div class="ic">${esc(it.icon)}</div>
+            <div style="flex:1;min-width:0">
+              ${it.time ? `<span class="time">${esc(it.time)}</span>` : ""}
+              <h3>${esc(it.title)}</h3>
+            </div>
+            <button class="check-btn" data-a="done" title="標記完成">${S.done[it.id] ? "✓" : ""}</button>
+          </div>
+          ${notesHTML(it.notes)}
+          ${it.maps.length ? `<div class="maps">${it.maps.map(x => `<a class="map" target="_blank" rel="noopener" href="${esc(url(x.q))}">📍 ${esc(x.label || it.title)}</a>`).join("")}</div>` : ""}
+          <div class="tools edit-only">
+            <button class="btn" data-a="up" title="上移">⬆️</button>
+            <button class="btn" data-a="dn" title="下移">⬇️</button>
+            <button class="btn" data-a="edit">✏️ 編輯</button>
+            <button class="btn warn" data-a="del" style="margin-left:auto">🗑️ 刪除</button>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+    <button class="add edit-only" id="addi">＋ 新增這天的行程</button>
+  `;
+}
+
+function itemForm(it, cb) {
+  const mp = it.maps.map(x => (x.label ? x.label + "|" : "") + x.q).join("\n");
+  $("dlgbody").innerHTML = `
+    <h2 style="margin:0">${it.title ? "編輯行程" : "新增行程"}</h2>
+    <div class="row">
+      <div><label>圖示</label><input id="f_i" value="${esc(it.icon || "📌")}"></div>
+      <div><label>時間</label><input id="f_t" value="${esc(it.time)}" placeholder="例：11:30"></div>
+    </div>
+    <label>標題</label><input id="f_n" value="${esc(it.title)}">
+    <label>備註內容 <span class="hint">一行一項</span></label><textarea id="f_o">${esc(it.notes)}</textarea>
+    <label>Google 地圖 <span class="hint">一行一個：按鈕名稱|搜尋關鍵字</span></label><textarea id="f_m">${esc(mp)}</textarea>
+    <div class="acts">
+      <button class="btn" id="cx">取消</button>
+      <button class="btn primary" id="ok">儲存</button>
+    </div>
+  `;
+  $("dlg").showModal();
+  $("cx").onclick = () => $("dlg").close();
+  $("ok").onclick = () => {
+    cb({
+      icon: $("f_i").value || "📌",
+      time: $("f_t").value.trim(),
+      title: $("f_n").value.trim() || "（未命名）",
+      notes: $("f_o").value,
+      maps: $("f_m").value.split("\n").map(s => s.trim()).filter(Boolean).map(s => {
+        const p = s.split("|");
+        return p.length > 1 ? { label: p[0].trim(), q: p.slice(1).join("|").trim() } : { label: "", q: s };
+      })
+    });
+    save();
+    $("dlg").close();
+    render();
+  };
+}
+
+function dayForm(d, isNew) {
+  $("dlgbody").innerHTML = `
+    <h2 style="margin:0">${isNew ? "新增一天" : "編輯這一天"}</h2>
+    <div class="row">
+      <div><label>圖示</label><input id="g_e" value="${esc(d.emoji)}"></div>
+      <div><label>日期</label><input id="g_d" value="${esc(d.date)}" placeholder="例：12/7（一）"></div>
+    </div>
+    <label>當日主題標題</label><input id="g_t" value="${esc(d.title)}">
+    <div class="acts">
+      ${isNew ? "" : `<button class="btn warn" id="gdel" style="margin-right:auto">刪除這天</button>`}
+      <button class="btn" id="cx">取消</button>
+      <button class="btn primary" id="ok">儲存</button>
+    </div>
+  `;
+  $("dlg").showModal();
+  $("cx").onclick = () => $("dlg").close();
+  if (!isNew) {
+    $("gdel").onclick = () => {
+      if (confirm("確定刪除整天行程？")) {
+        S.days = S.days.filter(x => x !== d);
+        cur = "sum";
+        save();
+        $("dlg").close();
+        render();
+      }
+    };
+  }
+  $("ok").onclick = () => {
+    d.emoji = $("g_e").value || "📅";
+    d.date = $("g_d").value;
+    d.title = $("g_t").value || "新的一天";
+    if (isNew) { S.days.push(d); cur = d.id; }
+    save();
+    $("dlg").close();
+    render();
+  };
+}
+
+$("toggleEdit").onclick = toggleEditMode;
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-t]");
+  if (t) {
+    if (t.dataset.t === "+") dayForm({ id: uid(), date: "", title: "", emoji: "📅", items: [] }, true);
+    else { cur = t.dataset.t; render(); scrollTo(0, 0); }
+    return;
+  }
+  const g = e.target.closest("[data-go]");
+  if (g) { cur = g.dataset.go; render(); scrollTo(0, 0); return; }
+
+  const d = S.days.find(x => x.id === cur);
+  if (e.target.id === "ed") return dayForm(d, false);
+  if (e.target.id === "addi") return itemForm({ icon: "📌", time: "", title: "", notes: "", maps: [] }, v => d.items.push({ id: uid(), ...v }));
+
+  const a = e.target.closest("[data-a]");
+  if (a && d) {
+    const i = +a.closest(".card").dataset.i, it = d.items[i], k = a.dataset.a;
+    if (k === "done") { S.done[it.id] = !S.done[it.id]; save(); render(); }
+    else if (k === "edit") itemForm(it, v => Object.assign(it, v));
+    else if (k === "del") { if (confirm("確定刪除「" + it.title + "」？")) { d.items.splice(i, 1); save(); render(); } }
+    else {
+      const j = k === "up" ? i - 1 : i + 1;
+      if (j >= 0 && j < d.items.length) { [d.items[i], d.items[j]] = [d.items[j], d.items[i]]; save(); render(); }
+    }
+  }
+
+  if (e.target.id === "rst" && confirm("所有修改都會消失，確定恢復？")) {
+    S = { days: JSON.parse(JSON.stringify(DEF)), done: {} };
+    save();
+    render();
+  }
+  if (e.target.id === "exp") {
+    $("dlgbody").innerHTML = `<h2 style="margin:0">備份行程</h2><p style="font-size:15px;color:var(--sub)">複製下方文字傳給家人，或貼到記事本保存。</p><textarea id="bx" style="min-height:180px" readonly>${esc(JSON.stringify(S))}</textarea><div class="acts"><button class="btn primary" id="cx">關閉</button></div>`;
+    $("dlg").showModal();
+    $("cx").onclick = () => $("dlg").close();
+  }
+  if (e.target.id === "imp") {
+    $("dlgbody").innerHTML = `<h2 style="margin:0">還原備份</h2><p style="font-size:15px;color:var(--sub)">貼上之前複製的備份文字。</p><textarea id="bx" style="min-height:180px"></textarea><div class="acts"><button class="btn" id="cx">取消</button><button class="btn primary" id="ok">還原</button></div>`;
+    $("dlg").showModal();
+    $("cx").onclick = () => $("dlg").close();
+    $("ok").onclick = () => {
+      try {
+        const n = JSON.parse($("bx").value);
+        if (!n.days) throw 0;
+        S = n;
+        save();
+        $("dlg").close();
+        render();
+      } catch (_) { alert("格式不正確，請確認是否完整複製"); }
+    };
+  }
+});
+
+render();
+</script>
+</body>
+</html>
