@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>大阪・京都 家庭旅遊 12/2–12/6</title>
+<meta name="description" content="12/2（三）– 12/6（日）｜5 天 4 夜大阪・京都行程表與地圖導航">
+<meta property="og:title" content="大阪・京都 家庭旅遊 12/2–12/6">
+<meta property="og:description" content="12/2（三）– 12/6（日）｜5 天 4 夜大阪・京都行程表與地圖導航">
+<meta property="og:type" content="website">
 <style>
 :root {
   --bg: #faf6f0;
@@ -54,12 +58,10 @@ body {
   transition: background 0.25s ease;
 }
 
-/* 編輯模式全域視覺提示 */
 body.is-editing {
   box-shadow: inset 0 0 0 3px var(--red);
 }
 
-/* 頂部主視覺 */
 .hero {
   background: linear-gradient(135deg, #b82921 0%, #d94a38 55%, #eb8646 100%);
   color: #fff;
@@ -99,7 +101,6 @@ body.is-editing {
   border-radius: 20px;
 }
 
-/* 導覽列 */
 .tabs {
   position: sticky;
   top: env(safe-area-inset-top, 0px);
@@ -139,14 +140,12 @@ body.is-editing {
   box-shadow: 0 4px 12px rgba(200, 55, 45, 0.28);
 }
 
-/* 主內容區 */
 main {
   max-width: 680px;
   margin: 0 auto;
   padding: 20px 16px 110px;
 }
 
-/* 單日標題區 */
 .dayhead {
   display: flex;
   align-items: center;
@@ -170,7 +169,6 @@ main {
   line-height: 1.35;
 }
 
-/* 時間軸容器 */
 .timeline {
   position: relative;
   padding-left: 24px;
@@ -186,7 +184,6 @@ main {
   border-radius: 2px;
 }
 
-/* 行程卡片 */
 .card {
   background: var(--card);
   border: 1px solid var(--line);
@@ -253,7 +250,6 @@ main {
   line-height: 1.4;
 }
 
-/* 備註列表 */
 .notes-box {
   margin-top: 12px;
   padding-top: 10px;
@@ -268,7 +264,6 @@ main {
 .notes-box li { margin: 4px 0; }
 .notes-box div { margin-bottom: 4px; font-weight: 600; color: var(--sub); }
 
-/* 地圖按鈕 */
 .maps {
   display: flex;
   flex-wrap: wrap;
@@ -294,7 +289,6 @@ main {
   color: #fff;
 }
 
-/* 完成勾選按鈕 */
 .check-btn {
   border: 1.5px solid var(--line);
   background: var(--bg);
@@ -316,7 +310,6 @@ main {
   color: #fff;
 }
 
-/* 通用按鈕與編輯工具列 */
 .btn {
   border: 1px solid var(--line);
   background: var(--card);
@@ -356,7 +349,6 @@ main {
   margin-top: 6px;
 }
 
-/* 總覽頁專屬樣式 */
 .progress-wrap {
   background: var(--card);
   border: 1px solid var(--line);
@@ -423,7 +415,6 @@ main {
   border-top: 1px dashed var(--line);
 }
 
-/* 右下角懸浮「編輯模式」切換鈕 */
 .fab-edit {
   position: fixed;
   right: 18px;
@@ -452,13 +443,11 @@ main {
   box-shadow: 0 6px 22px rgba(200, 55, 45, 0.4);
 }
 
-/* 編輯模式控制顯示/隱藏 */
 .edit-only { display: none !important; }
 body.is-editing .edit-only { display: flex !important; }
 body.is-editing button.edit-only { display: inline-flex !important; }
 body.is-editing button.add.edit-only { display: block !important; }
 
-/* 彈窗表單 */
 dialog {
   border: 0;
   border-radius: 24px;
@@ -501,7 +490,7 @@ textarea { min-height: 92px; }
 <nav class="tabs" id="tabs"></nav>
 <main id="main"></main>
 
-<button class="fab-edit" id="toggleEdit">✏️ 編輯模式</button>
+<button class="fab-edit" id="toggleEdit" aria-label="切換編輯模式"></button>
 <dialog id="dlg"><div id="dlgbody"></div></dialog>
 
 <script>
@@ -830,6 +819,7 @@ document.addEventListener("click", e => {
   }
 });
 
+$("toggleEdit").innerHTML = "✏️ 編輯模式";
 render();
 </script>
 </body>
