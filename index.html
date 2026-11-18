@@ -85,9 +85,9 @@ body.is-editing {
 }
 .hero h1 {
   margin: 0;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 800;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
 }
 .hero p {
   margin: 8px 0 0;
@@ -494,7 +494,7 @@ textarea { min-height: 92px; }
 
 <header class="hero">
   <div class="big">⛩️🗼🦀</div>
-  <h1>大阪・京都 家庭旅遊</h1>
+  <h1>大阪・京都 家庭旅遊 12/2–12/6</h1>
   <p>12/2（三）– 12/6（日）｜5 天 4 夜</p>
 </header>
 
@@ -505,31 +505,31 @@ textarea { min-height: 92px; }
 <dialog id="dlg"><div id="dlgbody"></div></dialog>
 
 <script>
-const KEY = "osaka-trip-v7";
+const KEY = "osaka-trip-v8";
 const INN = {
   label: "民宿：大阪民泊【山也居】",
   q: "大阪民泊【山也居】 2 Chome-14-30 Tengachayahigashi, Nishinari Ward, Osaka"
 };
 
 const DEF = [
-  {id:"d1",date:"12/2（三）",title:"大阪抵達・道頓堀・和牛燒肉",emoji:"✈️",items:[
+  {id:"d1",date:"12/2（三）",title:"大阪抵達・道頓堀・蟹道樂",emoji:"✈️",items:[
     {id:"a1",time:"約 15:00",icon:"🛬",title:"大阪抵達・前往山也居辦理入住",notes:"抵達關西機場後，搭乘南海電鐵至天下茶屋站，步行前往「大阪民泊【山也居】」辦理入住\n地址：大阪市西成區天下茶屋東 2-14-30",maps:[
       INN,
       {label:"南海電鐵 天下茶屋站",q:"天下茶屋駅 大阪"}
     ]},
-    {id:"a2",time:"17:00–19:00",icon:"🌃",title:"道頓堀夜遊",notes:"逛道頓堀商圈，與固力果跑跑人看板合照",maps:[
+    {id:"a2",time:"16:30–18:00",icon:"🌃",title:"道頓堀夜遊",notes:"逛道頓堀商圈，與固力果跑跑人看板合照",maps:[
       {label:"道頓堀",q:"道頓堀 大阪"},
       {label:"固力果跑跑人看板",q:"道頓堀グリコサイン"}
     ]},
-    {id:"a3",time:"19:30",icon:"🥩",title:"晚餐：燒肉屋 大牧場 道頓堀店",notes:"享用日本國產和牛燒肉＋帝王蟹大餐\n地址：大阪市中央區道頓堀 1-6-15 コムラード・ドウトンビル 5F",maps:[
-      {label:"燒肉屋 大牧場 道頓堀店",q:"燒肉屋 大牧場 道頓堀店 Osaka"}
+    {id:"a3",time:"18:30",icon:"🦀",title:"晚餐：蟹道樂 道頓堀本店",notes:"享用招牌松葉蟹、帝王蟹會席料理大餐",maps:[
+      {label:"蟹道樂 道頓堀本店",q:"かに道楽 道頓堀本店"}
     ]}
   ]},
-  {id:"d2",date:"12/3（四）",title:"大阪城・水上觀光船・會席料理",emoji:"🏯",items:[
-    {id:"b1",time:"12:00",icon:"🍜",title:"午餐：一蘭拉麵",notes:"（若蟹道樂改排 12/3，則取代此餐）",maps:[
-      {label:"一蘭拉麵 道頓堀店本館",q:"一蘭 道頓堀店本館"}
+  {id:"d2",date:"12/3（四）",title:"燒肉屋大牧場・大阪城・水上觀光船・會席料理",emoji:"🏯",items:[
+    {id:"b1",time:"12:00",icon:"🥩",title:"午餐：燒肉屋 大牧場 道頓堀店",notes:"享用日本國產和牛燒肉大餐（午間時段更划算）\n地址：大阪市中央區道頓堀 1-6-15 コムラード・ドウトンビル 5F",maps:[
+      {label:"燒肉屋 大牧場 道頓堀店",q:"燒肉屋 大牧場 道頓堀店 Osaka"}
     ]},
-    {id:"b2",time:"13:30–16:00",icon:"🏯",title:"大阪城",notes:"參觀大阪城天守閣與大阪城公園",maps:[
+    {id:"b2",time:"14:00–16:00",icon:"🏯",title:"大阪城",notes:"參觀大阪城天守閣與大阪城公園",maps:[
       {label:"大阪城天守閣",q:"大阪城天守閣"}
     ]},
     {id:"b3",time:"16:30–17:30",icon:"🚤",title:"水上觀光船",notes:"搭乘大阪水上巴士（Aqua-Liner）遊覽大川沿岸風光",maps:[
@@ -553,15 +553,12 @@ const DEF = [
     {id:"e1",time:"11:30",icon:"🐟",title:"午餐：生鮪魚海鮮丼",notes:"從天下茶屋站搭地鐵前往本町站\n海鮮丼まぐろ丸 本店\n品嚐新鮮生鮪魚及海鮮丼",maps:[
       {label:"まぐろ丸 本店",q:"海鮮丼まぐろ丸 本店 大阪"}
     ]},
-    {id:"e2",time:"13:00–17:30",icon:"🛍️",title:"心齋橋、難波購物",notes:"沿途一路往南逛：\n1. 心齋橋筋商店街\n2. 大丸心齋橋百貨\n3. 心齋橋 PARCO\n4. 道頓堀\n5. 難波商圈",maps:[
+    {id:"e2",time:"13:00–18:30",icon:"🛍️",title:"心齋橋、難波購物",notes:"沿途一路往南逛：\n1. 心齋橋筋商店街\n2. 大丸心齋橋百貨\n3. 心齋橋 PARCO\n4. 道頓堀\n5. 難波商圈",maps:[
       {label:"心齋橋筋商店街",q:"心斎橋筋商店街"},
       {label:"大丸心齋橋",q:"大丸心斎橋店"},
       {label:"心齋橋 PARCO",q:"心斎橋PARCO"},
       {label:"道頓堀",q:"道頓堀 大阪"},
       {label:"難波商圈",q:"難波 大阪"}
-    ]},
-    {id:"e3",time:"15:30–16:30",icon:"🦀",title:"蟹道樂（二選一）",notes:"方案 A：前往蟹道樂道頓堀本店，作為下午的豪華正餐\n方案 B：移至 12/3 午餐，取代一蘭拉麵，12/5 保留胃口給海鮮丼及爐端燒",maps:[
-      {label:"蟹道樂 道頓堀本店",q:"かに道楽 道頓堀本店"}
     ]},
     {id:"e4",time:"19:30",icon:"🍣",title:"晚餐：爐端燒＋壽司",notes:"寿し炉端喜多郎寿し 道具屋筋横丁店\n體驗現烤爐端燒及日式壽司\n位於千日前道具屋筋商店街內\n用餐後從難波站搭南海電鐵返回「大阪民泊【山也居】」",maps:[
       {label:"喜多郎壽司",q:"喜多郎寿し 道具屋筋横丁店"},
