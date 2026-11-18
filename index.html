@@ -62,6 +62,30 @@ body.is-editing {
   box-shadow: inset 0 0 0 3px var(--red);
 }
 
+/* 編輯模式頂部提示條 */
+.edit-banner {
+  background: var(--red);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.edit-banner button {
+  background: #fff;
+  color: var(--red);
+  border: 0;
+  border-radius: 999px;
+  padding: 2px 12px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
 .hero {
   background: linear-gradient(135deg, #b82921 0%, #d94a38 55%, #eb8646 100%);
   color: #fff;
@@ -143,7 +167,7 @@ body.is-editing {
 main {
   max-width: 680px;
   margin: 0 auto;
-  padding: 20px 16px 110px;
+  padding: 20px 16px 24px;
 }
 
 .dayhead {
@@ -415,32 +439,36 @@ main {
   border-top: 1px dashed var(--line);
 }
 
-.fab-edit {
-  position: fixed;
-  right: 18px;
-  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-  z-index: 20;
+/* 頁面最底部的編輯模式區塊 */
+.page-footer {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 18px 16px calc(36px + env(safe-area-inset-bottom, 0px));
+  text-align: center;
+  border-top: 1px solid var(--line);
+}
+.bottom-edit-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 12px 18px;
-  border-radius: 999px;
+  padding: 10px 22px;
+  border-radius: 14px;
   border: 1.5px solid var(--line);
   background: var(--card);
-  color: var(--ink);
+  color: var(--sub);
   font: inherit;
   font-size: 15px;
   font-weight: 700;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
   cursor: pointer;
   transition: all 0.2s ease;
 }
-.fab-edit:active { transform: scale(0.95); }
-.fab-edit.active {
+.bottom-edit-btn:active { transform: scale(0.96); }
+.bottom-edit-btn.active {
   background: var(--red);
   border-color: var(--red);
   color: #fff;
-  box-shadow: 0 6px 22px rgba(200, 55, 45, 0.4);
+  box-shadow: 0 4px 14px rgba(200, 55, 45, 0.3);
 }
 
 .edit-only { display: none !important; }
@@ -481,6 +509,8 @@ textarea { min-height: 92px; }
 </head>
 <body>
 
+<div class="edit-banner edit-only" id="editBanner"></div>
+
 <header class="hero">
   <div class="big">⛩️🗼🦀</div>
   <h1>大阪・京都 家庭旅遊 12/2–12/6</h1>
@@ -490,7 +520,10 @@ textarea { min-height: 92px; }
 <nav class="tabs" id="tabs"></nav>
 <main id="main"></main>
 
-<button class="fab-edit" id="toggleEdit" aria-label="切換編輯模式"></button>
+<footer class="page-footer">
+  <button class="bottom-edit-btn" id="toggleEdit" aria-label="切換編輯模式"></button>
+</footer>
+
 <dialog id="dlg"><div id="dlgbody"></div></dialog>
 
 <script>
@@ -584,7 +617,7 @@ function toggleEditMode() {
   document.body.classList.toggle("is-editing", isEditing);
   const btn = $("toggleEdit");
   btn.classList.toggle("active", isEditing);
-  btn.innerHTML = isEditing ? "✅ 完成編輯" : "✏️✏️✏️";
+  btn.innerHTML = isEditing ? "✅ 完成編輯" : "✏️ 編輯模式";
 }
 
 function notesHTML(n) {
@@ -819,7 +852,8 @@ document.addEventListener("click", e => {
   }
 });
 
-$("toggleEdit").innerHTML = "✏️✏️✏️";
+$("editBanner").innerHTML = `<span>✏️ 目前為編輯模式</span><button onclick="toggleEditMode()">完成</button>`;
+$("toggleEdit").innerHTML = "✏️ 編輯模式";
 render();
 </script>
 </body>
