@@ -10,19 +10,22 @@
 <meta property="og:type" content="website">
 <style>
 :root {
-  --bg: #faf6f0;
-  --bg-glass: rgba(250, 246, 240, 0.88);
-  --card: #ffffff;
-  --ink: #2c2420;
-  --sub: #7a6b60;
-  --red: #c8372d;
-  --red-light: #fdf0ee;
-  --gold: #d98a2b;
-  --line: #eadfd3;
-  --chip: #f7e8d6;
-  --ok: #2e8b57;
-  --shadow: 0 6px 20px rgba(80, 45, 15, 0.06);
-  --shadow-hover: 0 10px 26px rgba(80, 45, 15, 0.11);
+  --bg: #f5f5f7;
+  --bg-elevated: #ffffff;
+  --bg-glass: rgba(245, 245, 247, 0.78);
+  --bg-pill: rgba(118, 118, 128, 0.12);
+  --ink: #1d1d1f;
+  --sub: #6e6e73;
+  --tertiary: #86868b;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --accent-soft: rgba(0, 113, 227, 0.1);
+  --warm: #d93829;
+  --ok: #34c759;
+  --line: rgba(0, 0, 0, 0.08);
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.08);
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -30,44 +33,58 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #181513;
-    --bg-glass: rgba(24, 21, 19, 0.88);
-    --card: #241f1c;
-    --ink: #f4ede6;
-    --sub: #a8998c;
-    --red: #ff7360;
-    --red-light: #382320;
-    --gold: #f0a848;
-    --line: #382f2a;
-    --chip: #362a22;
-    --ok: #5cd691;
-    --shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
-    --shadow-hover: 0 10px 26px rgba(0, 0, 0, 0.4);
+    --bg: #000000;
+    --bg-elevated: #1c1c1e;
+    --bg-glass: rgba(28, 28, 30, 0.78);
+    --bg-pill: rgba(118, 118, 128, 0.24);
+    --ink: #f5f5f7;
+    --sub: #a1a1a6;
+    --tertiary: #6e6e73;
+    --accent: #2997ff;
+    --accent-hover: #40a3ff;
+    --accent-soft: rgba(41, 151, 255, 0.16);
+    --warm: #ff6961;
+    --ok: #30d158;
+    --line: rgba(255, 255, 255, 0.1);
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.6);
     color-scheme: dark;
   }
 }
 
-html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font: 17px/1.65 "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-  transition: background 0.25s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  letter-spacing: -0.012em;
+  overflow-x: hidden;
 }
 
 body.is-editing {
-  box-shadow: inset 0 0 0 3px var(--red);
+  box-shadow: inset 0 0 0 3px var(--warm);
 }
 
-/* 編輯模式頂部提示條 */
+/* 編輯模式頂部膠囊橫幅 */
 .edit-banner {
-  background: var(--red);
+  background: var(--warm);
   color: #fff;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   padding: 8px 16px;
   display: flex;
   align-items: center;
@@ -76,358 +93,447 @@ body.is-editing {
 }
 .edit-banner button {
   background: #fff;
-  color: var(--red);
+  color: var(--warm);
   border: 0;
   border-radius: 999px;
-  padding: 2px 12px;
+  padding: 3px 12px;
   font: inherit;
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 700;
   cursor: pointer;
 }
 
+/* Apple Keynote 風格主視覺 Hero */
 .hero {
-  background: linear-gradient(135deg, #b82921 0%, #d94a38 55%, #eb8646 100%);
-  color: #fff;
-  padding: 36px 20px 30px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 36px;
   text-align: center;
-  border-radius: 0 0 32px 32px;
-  box-shadow: 0 8px 24px rgba(184, 41, 33, 0.22);
-  position: relative;
-  overflow: hidden;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  will-change: transform, opacity;
 }
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 85% 15%, rgba(255,255,255,0.16), transparent 45%);
-  pointer-events: none;
-}
-.hero .big {
-  font-size: 40px;
-  letter-spacing: 6px;
-  margin-bottom: 4px;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--warm);
+  margin-bottom: 10px;
 }
 .hero h1 {
   margin: 0;
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
+  font-size: clamp(32px, 6vw, 48px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--ink) 20%, var(--sub) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.hero p {
-  margin: 8px 0 0;
-  font-size: 15px;
-  opacity: 0.92;
-  background: rgba(0, 0, 0, 0.16);
-  display: inline-block;
-  padding: 3px 14px;
-  border-radius: 20px;
+.hero-sub {
+  margin: 14px auto 0;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--sub);
+  max-width: 480px;
+}
+.hero-icons {
+  margin-top: 20px;
+  font-size: 28px;
+  letter-spacing: 12px;
+  opacity: 0.9;
 }
 
-.tabs {
+/* 毛玻璃分段導覽列 (Apple Segmented Control) */
+.nav-wrap {
   position: sticky;
   top: env(safe-area-inset-top, 0px);
-  z-index: 10;
+  z-index: 30;
   background: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding: 12px 16px;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--line);
+  padding: 10px 16px;
+}
+.tabs {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
   scrollbar-width: none;
 }
 .tabs::-webkit-scrollbar { display: none; }
 
 .tab {
   flex: 0 0 auto;
-  border: 1.5px solid var(--line);
-  background: var(--card);
-  color: var(--ink);
-  border-radius: 16px;
-  padding: 8px 15px;
+  border: 0;
+  background: transparent;
+  color: var(--sub);
+  border-radius: 999px;
+  padding: 7px 15px;
   font: inherit;
   font-size: 14px;
-  text-align: center;
-  line-height: 1.3;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.28s var(--ease-apple);
 }
-.tab:active { transform: scale(0.96); }
-.tab b { display: block; font-size: 16px; margin-bottom: 1px; }
+.tab:hover { color: var(--ink); background: var(--bg-pill); }
+.tab:active { transform: scale(0.95); }
 .tab.on {
-  background: var(--red);
-  border-color: var(--red);
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(200, 55, 45, 0.28);
+  background: var(--ink);
+  color: var(--bg-elevated);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+}
+.tab-date {
+  font-size: 12px;
+  opacity: 0.72;
+  font-weight: 500;
 }
 
+/* 主內容容器 */
 main {
-  max-width: 680px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 20px 16px 24px;
+  padding: 28px 18px 36px;
 }
 
-.dayhead {
+/* 隨顯滾動動畫 (Scroll Reveal) */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px) scale(0.985);
+  filter: blur(4px);
+  transition:
+    opacity 0.72s var(--ease-apple),
+    transform 0.72s var(--ease-apple),
+    filter 0.72s var(--ease-apple);
+  will-change: opacity, transform, filter;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Bento Grid 總覽排版 */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+@media (max-width: 540px) {
+  .bento-grid { grid-template-columns: 1fr; }
+}
+
+.bento-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow);
+  transition: transform 0.35s var(--ease-apple), box-shadow 0.35s var(--ease-apple);
+}
+.bento-card.clickable {
+  cursor: pointer;
+}
+.bento-card.clickable:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+.bento-card.clickable:active {
+  transform: scale(0.98);
+}
+
+.bento-kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--sub);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+.bento-big {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+.bento-sub {
+  font-size: 14px;
+  color: var(--sub);
+  margin-top: 6px;
+}
+
+.prog-track {
+  height: 6px;
+  background: var(--bg-pill);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 14px;
+}
+.prog-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.6s var(--ease-apple);
+}
+
+/* 總覽每日行程列表卡 */
+.day-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.day-row {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 20px 22px;
   display: flex;
   align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.35s var(--ease-apple), box-shadow 0.35s var(--ease-apple);
+}
+.day-row:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+.day-row:active {
+  transform: scale(0.985);
+}
+.day-emoji {
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.day-meta {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+.day-name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+}
+.day-chevron {
+  margin-left: auto;
+  color: var(--tertiary);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* 單日標題區 */
+.dayhead {
+  display: flex;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 12px;
-  margin: 4px 4px 20px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid var(--line);
+  margin: 4px 4px 24px;
 }
-.dayhead small {
-  color: var(--red);
+.dayhead-tag {
+  font-size: 13px;
   font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  display: block;
-  margin-bottom: 2px;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
 }
 .dayhead h2 {
   margin: 0;
-  font-size: 23px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+
+/* 行程卡片 */
+.cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow);
+  transition: transform 0.35s var(--ease-apple), box-shadow 0.35s var(--ease-apple), opacity 0.3s ease;
+}
+.card:hover {
+  box-shadow: var(--shadow-hover);
+}
+.card.done {
+  opacity: 0.52;
+}
+
+.card-top {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.card-ic {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.card-time {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sub);
+  margin-bottom: 2px;
+}
+.card h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
   line-height: 1.35;
 }
 
-.timeline {
-  position: relative;
-  padding-left: 24px;
-}
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 7px;
-  top: 18px;
-  bottom: 24px;
-  width: 2.5px;
-  background: linear-gradient(to bottom, var(--red), var(--gold), var(--line));
-  border-radius: 2px;
-}
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  padding: 18px 18px 16px;
-  margin-bottom: 16px;
-  box-shadow: var(--shadow);
-  position: relative;
-  transition: all 0.25s ease;
-}
-.timeline .card::before {
-  content: "";
-  position: absolute;
-  left: -22px;
-  top: 24px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--card);
-  border: 3px solid var(--red);
-  box-shadow: 0 0 0 3px var(--bg);
-  z-index: 1;
-}
-.card.done {
-  opacity: 0.58;
-  background: var(--bg);
-}
-.timeline .card.done::before {
-  border-color: var(--ok);
-  background: var(--ok);
-}
-
-.top {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-.ic {
-  font-size: 32px;
-  line-height: 1.1;
-  background: var(--bg);
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  border: 1px solid var(--line);
-}
-.time {
-  display: inline-block;
-  background: var(--chip);
-  color: var(--red);
-  font-weight: 700;
-  border-radius: 8px;
-  padding: 2px 10px;
-  font-size: 14px;
-  margin-bottom: 4px;
-}
-.card h3 {
-  margin: 2px 0 0;
-  font-size: 20px;
-  line-height: 1.4;
-}
-
-.notes-box {
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid var(--line);
-  color: var(--ink);
-  font-size: 16px;
-}
-.notes-box ul, .notes-box ol {
-  margin: 4px 0 0;
-  padding-left: 22px;
-}
-.notes-box li { margin: 4px 0; }
-.notes-box div { margin-bottom: 4px; font-weight: 600; color: var(--sub); }
-
-.maps {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 14px;
-}
-.map {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: var(--red-light);
-  color: var(--red);
-  border: 1px solid rgba(200, 55, 45, 0.25);
-  text-decoration: none;
-  border-radius: 12px;
-  padding: 7px 13px;
-  font-size: 14px;
-  font-weight: 700;
-  transition: all 0.18s ease;
-}
-.map:hover, .map:active {
-  background: var(--red);
-  color: #fff;
-}
-
+/* Apple 風格圓形勾選器 */
 .check-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
   border: 1.5px solid var(--line);
   background: var(--bg);
-  color: var(--ink);
-  border-radius: 12px;
-  width: 38px;
-  height: 38px;
+  color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
   flex-shrink: 0;
-  transition: all 0.15s ease;
+  transition: all 0.25s var(--ease-apple);
 }
+.check-btn:active { transform: scale(0.88); }
 .card.done .check-btn {
   background: var(--ok);
   border-color: var(--ok);
   color: #fff;
 }
 
+/* 備註區塊 */
+.notes-box {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--sub);
+  font-size: 15px;
+  line-height: 1.65;
+}
+.notes-box ul, .notes-box ol {
+  margin: 4px 0 0;
+  padding-left: 20px;
+}
+.notes-box li { margin: 3px 0; }
+.notes-box div {
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Apple 風格膠囊導航按鈕 */
+.maps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.map {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s var(--ease-apple);
+}
+.map:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.map:active {
+  transform: scale(0.96);
+}
+
+/* 編輯工具列與按鈕 */
 .btn {
   border: 1px solid var(--line);
-  background: var(--card);
+  background: var(--bg-elevated);
   color: var(--ink);
-  border-radius: 12px;
-  padding: 7px 13px;
+  border-radius: 999px;
+  padding: 7px 15px;
   font: inherit;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
 }
-.btn:active { transform: scale(0.96); }
-.primary { background: var(--red); color: #fff; border-color: var(--red); }
-.warn { color: #c0392b; border-color: rgba(192, 57, 43, 0.3); }
+.btn:active { transform: scale(0.95); }
+.primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.warn {
+  color: var(--warm);
+  border-color: rgba(217, 56, 41, 0.28);
+}
 
 .tools {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: 14px;
-  border-top: 1px dashed var(--line);
-  padding-top: 12px;
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
 }
 
 .add {
   width: 100%;
-  border: 2px dashed var(--red);
-  background: var(--red-light);
-  color: var(--red);
-  border-radius: 18px;
-  padding: 14px;
+  border: 1.5px dashed var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 22px;
+  padding: 15px;
   font: inherit;
-  font-size: 17px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 6px;
+  margin-top: 16px;
+  transition: all 0.2s ease;
 }
-
-.progress-wrap {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 14px 18px;
-  margin-bottom: 16px;
-  box-shadow: var(--shadow);
-}
-.progress-top {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--sub);
-}
-.progress-bar {
-  height: 8px;
-  background: var(--line);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--red), var(--gold));
-  border-radius: 10px;
-  transition: width 0.3s ease;
-}
-
-.sum-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 16px;
-  margin-bottom: 12px;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-.sum-card:active { transform: scale(0.98); }
-.sum-badge {
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--red);
-  background: var(--chip);
-  padding: 2px 8px;
-  border-radius: 6px;
-  display: inline-block;
-  margin-bottom: 3px;
-}
-.sum-title { font-weight: 700; font-size: 18px; line-height: 1.35; }
-.sum-arrow { margin-left: auto; color: var(--sub); font-size: 18px; }
+.add:active { transform: scale(0.98); }
 
 .foot {
   display: flex;
@@ -435,40 +541,43 @@ main {
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px dashed var(--line);
 }
 
-/* 頁面最底部的編輯模式區塊 */
+/* 頁面最底部的極簡頁尾與編輯模式切換 */
 .page-footer {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 18px 16px calc(36px + env(safe-area-inset-bottom, 0px));
+  max-width: 720px;
+  margin: 12px auto 0;
+  padding: 24px 18px calc(44px + env(safe-area-inset-bottom, 0px));
   text-align: center;
   border-top: 1px solid var(--line);
+}
+.footer-note {
+  font-size: 12px;
+  color: var(--tertiary);
+  margin-bottom: 14px;
 }
 .bottom-edit-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 10px 22px;
-  border-radius: 14px;
-  border: 1.5px solid var(--line);
-  background: var(--card);
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg-elevated);
   color: var(--sub);
   font: inherit;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
+  transition: all 0.25s var(--ease-apple);
 }
-.bottom-edit-btn:active { transform: scale(0.96); }
+.bottom-edit-btn:active { transform: scale(0.95); }
 .bottom-edit-btn.active {
-  background: var(--red);
-  border-color: var(--red);
+  background: var(--warm);
+  border-color: var(--warm);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(200, 55, 45, 0.3);
 }
 
 .edit-only { display: none !important; }
@@ -476,58 +585,78 @@ body.is-editing .edit-only { display: flex !important; }
 body.is-editing button.edit-only { display: inline-flex !important; }
 body.is-editing button.add.edit-only { display: block !important; }
 
+/* Apple 風格彈出視窗 (Sheet / Modal) */
 dialog {
-  border: 0;
-  border-radius: 24px;
-  padding: 22px;
-  width: min(540px, 92vw);
-  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 24px;
+  width: min(520px, 92vw);
+  background: var(--bg-elevated);
   color: var(--ink);
   font: inherit;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
 }
-dialog::backdrop { background: rgba(0, 0, 0, 0.55); backdrop-filter: blur(3px); }
-label { display: block; font-weight: 700; margin: 12px 0 4px; font-size: 15px; }
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+label {
+  display: block;
+  font-weight: 600;
+  margin: 14px 0 5px;
+  font-size: 14px;
+  color: var(--sub);
+}
 input, textarea {
   width: 100%;
   font: inherit;
   font-size: 16px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1.5px solid var(--line);
+  padding: 11px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
   background: var(--bg);
   color: var(--ink);
+  transition: border-color 0.2s ease;
 }
-input:focus, textarea:focus { outline: none; border-color: var(--red); }
-textarea { min-height: 92px; }
-.hint { font-size: 13px; color: var(--sub); font-weight: 400; }
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+textarea { min-height: 96px; }
+.hint { font-size: 12px; color: var(--tertiary); font-weight: 400; }
 .row { display: flex; gap: 10px; }
 .row > div { flex: 1; }
-.row > div:first-child { flex: 0.65; }
-.acts { display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px; }
+.row > div:first-child { flex: 0.6; }
+.acts { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
 </style>
 </head>
 <body>
 
 <div class="edit-banner edit-only" id="editBanner"></div>
 
-<header class="hero">
-  <div class="big">⛩️🗼🦀</div>
+<header class="hero" id="hero">
+  <div class="hero-eyebrow">OSAKA &amp; KYOTO 2026</div>
   <h1>大阪・京都 家庭旅遊 12/2–12/6</h1>
-  <p>12/2（三）– 12/6（日）｜5 天 4 夜</p>
+  <p class="hero-sub">5 天 4 夜關西慢活之旅・專屬隨身行程指南</p>
+  <div class="hero-icons">⛩️ 🗼 🦀</div>
 </header>
 
-<nav class="tabs" id="tabs"></nav>
+<div class="nav-wrap">
+  <nav class="tabs" id="tabs"></nav>
+</div>
+
 <main id="main"></main>
 
 <footer class="page-footer">
+  <div class="footer-note">Designed for Family Journey ・ 點擊地點按鈕可直接開啟 Apple / Google 地圖導航</div>
   <button class="bottom-edit-btn" id="toggleEdit" aria-label="切換編輯模式"></button>
 </footer>
 
 <dialog id="dlg"><div id="dlgbody"></div></dialog>
 
 <script>
-const KEY = "osaka-trip-v13";
+const KEY = "osaka-trip-apple-v1";
 const INN = {
   label: "民宿：大阪民泊【山也居】",
   q: "大阪民泊【山也居】 2 Chome-14-30 Tengachayahigashi, Nishinari Ward, Osaka"
@@ -623,12 +752,44 @@ const uid = () => "x" + Math.random().toString(36).slice(2, 9);
 const $ = id => document.getElementById(id);
 const url = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
 
+/* Apple 風格隨顯滾動觀察器 (IntersectionObserver) */
+let io;
+function initReveal() {
+  if (io) io.disconnect();
+  const els = document.querySelectorAll(".reveal");
+  io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in");
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: "0px 0px -24px 0px" });
+
+  els.forEach((el, idx) => {
+    el.style.transitionDelay = `${Math.min(idx * 55, 280)}ms`;
+    io.observe(el);
+  });
+}
+
+/* Hero 滾動微視差 */
+window.addEventListener("scroll", () => {
+  const hero = $("hero");
+  if (!hero) return;
+  const y = window.scrollY;
+  if (y < 320) {
+    const progress = y / 320;
+    hero.style.transform = `translateY(${y * 0.22}px) scale(${1 - progress * 0.04})`;
+    hero.style.opacity = `${1 - progress * 0.65}`;
+  }
+}, { passive: true });
+
 function toggleEditMode() {
   isEditing = !isEditing;
   document.body.classList.toggle("is-editing", isEditing);
   const btn = $("toggleEdit");
   btn.classList.toggle("active", isEditing);
-  btn.innerHTML = isEditing ? "✅ 完成編輯" : "✏️ 編輯模式";
+  btn.innerHTML = isEditing ? "完成編輯" : "編輯模式";
 }
 
 function notesHTML(n) {
@@ -646,9 +807,9 @@ function notesHTML(n) {
 
 function render() {
   $("tabs").innerHTML =
-    `<button class="tab ${cur === "sum" ? "on" : ""}" data-t="sum"><b>📋</b>總覽</button>` +
-    S.days.map((d, i) => `<button class="tab ${cur === d.id ? "on" : ""}" data-t="${d.id}"><b>${esc(d.emoji)} D${i + 1}</b>${esc(d.date.split("（")[0])}</button>`).join("") +
-    `<button class="tab edit-only" data-t="+" style="border-style:dashed;color:var(--red)"><b>＋</b>加一天</button>`;
+    `<button class="tab ${cur === "sum" ? "on" : ""}" data-t="sum">總覽</button>` +
+    S.days.map((d, i) => `<button class="tab ${cur === d.id ? "on" : ""}" data-t="${d.id}">${esc(d.emoji)} Day ${i + 1}<span class="tab-date">${esc(d.date.split("（")[0])}</span></button>`).join("") +
+    `<button class="tab edit-only" data-t="+" style="color:var(--accent)">＋ 新增一天</button>`;
 
   const m = $("main");
   if (cur === "sum") {
@@ -657,43 +818,44 @@ function render() {
     const pct = totalItems ? Math.round((doneItems / totalItems) * 100) : 0;
 
     m.innerHTML = `
-      <div class="progress-wrap">
-        <div class="progress-top">
-          <span>旅程打卡進度</span>
-          <span>${doneItems} / ${totalItems} 項 (${pct}%)</span>
+      <div class="bento-grid">
+        <div class="bento-card reveal">
+          <span class="bento-kicker">旅程進度</span>
+          <div class="bento-big">${pct}%</div>
+          <div class="bento-sub">已完成 ${doneItems} / ${totalItems} 項行程</div>
+          <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
         </div>
-        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-      </div>
-      <div class="sum-card" style="cursor:default">
-        <div class="ic">🏠</div>
-        <div style="flex:1">
-          <span class="sum-badge">全程住宿</span>
-          <div class="sum-title">大阪民泊【山也居】</div>
-          <div style="font-size:13px;color:var(--sub);margin-top:2px">大阪市西成區天下茶屋東 2-14-30</div>
-          <div class="maps" style="margin-top:8px">
-            <a class="map" target="_blank" rel="noopener" href="${esc(url(INN.q))}">📍 開啟民宿 Google 地圖</a>
+        <div class="bento-card reveal">
+          <span class="bento-kicker">全程下榻住宿</span>
+          <div style="font-size:20px;font-weight:700;letter-spacing:-0.015em;margin-top:2px">大阪民泊【山也居】</div>
+          <div class="bento-sub">西成區天下茶屋東 2-14-30</div>
+          <div class="maps" style="margin-top:12px">
+            <a class="map" target="_blank" rel="noopener" href="${esc(url(INN.q))}">📍 開啟地圖導航</a>
           </div>
         </div>
       </div>
-      ` +
-      S.days.map((d, i) => `
-        <div class="sum-card" data-go="${d.id}">
-          <div class="ic">${esc(d.emoji)}</div>
-          <div>
-            <span class="sum-badge">DAY ${i + 1}・${esc(d.date)}</span>
-            <div class="sum-title">${esc(d.title)}</div>
+
+      <div class="day-list">
+        ${S.days.map((d, i) => `
+          <div class="day-row reveal" data-go="${d.id}">
+            <div class="day-emoji">${esc(d.emoji)}</div>
+            <div style="min-width:0;flex:1">
+              <div class="day-meta">DAY ${i + 1} ・ ${esc(d.date)}</div>
+              <div class="day-name">${esc(d.title)}</div>
+            </div>
+            <div class="day-chevron">›</div>
           </div>
-          <div class="sum-arrow">›</div>
-        </div>
-      `).join("") +
-      `
+        `).join("")}
+      </div>
+
       <div class="foot edit-only">
-        <button class="btn" id="exp">⬇️ 備份行程</button>
-        <button class="btn" id="imp">⬆️ 還原備份</button>
-        <button class="btn warn" id="rst">↩️ 恢復原始行程</button>
+        <button class="btn" id="exp">備份行程 JSON</button>
+        <button class="btn" id="imp">還原備份</button>
+        <button class="btn warn" id="rst">重置為預設行程</button>
       </div>
-      <p class="edit-only" style="justify-content:center;color:var(--sub);font-size:13px;margin-top:8px">目前為編輯模式，所有修改自動儲存在本機瀏覽器</p>
+      <p class="edit-only" style="justify-content:center;color:var(--tertiary);font-size:12px;margin-top:10px">編輯模式已開啟・所有變更自動儲存於本機瀏覽器</p>
     `;
+    initReveal();
     return;
   }
 
@@ -702,50 +864,53 @@ function render() {
   const d = S.days[di];
 
   m.innerHTML = `
-    <div class="dayhead">
+    <div class="dayhead reveal">
       <div>
-        <small>DAY ${di + 1} ｜ ${esc(d.date)}</small>
+        <div class="dayhead-tag">DAY ${di + 1} ・ ${esc(d.date)}</div>
         <h2>${esc(d.emoji)} ${esc(d.title)}</h2>
       </div>
-      <button class="btn edit-only" id="ed">✏️ 修改標題</button>
+      <button class="btn edit-only" id="ed">修改標題</button>
     </div>
-    <div class="timeline">
+
+    <div class="cards-stack">
       ${d.items.map((it, i) => `
-        <div class="card ${S.done[it.id] ? "done" : ""}" data-i="${i}">
-          <div class="top">
-            <div class="ic">${esc(it.icon)}</div>
+        <article class="card reveal ${S.done[it.id] ? "done" : ""}" data-i="${i}">
+          <div class="card-top">
+            <div class="card-ic">${esc(it.icon)}</div>
             <div style="flex:1;min-width:0">
-              ${it.time ? `<span class="time">${esc(it.time)}</span>` : ""}
+              ${it.time ? `<span class="card-time">${esc(it.time)}</span>` : ""}
               <h3>${esc(it.title)}</h3>
             </div>
-            <button class="check-btn" data-a="done" title="標記完成">${S.done[it.id] ? "✓" : ""}</button>
+            <button class="check-btn" data-a="done" title="標記完成">✓</button>
           </div>
           ${notesHTML(it.notes)}
           ${it.maps.length ? `<div class="maps">${it.maps.map(x => `<a class="map" target="_blank" rel="noopener" href="${esc(url(x.q))}">📍 ${esc(x.label || it.title)}</a>`).join("")}</div>` : ""}
           <div class="tools edit-only">
-            <button class="btn" data-a="up" title="上移">⬆️</button>
-            <button class="btn" data-a="dn" title="下移">⬇️</button>
-            <button class="btn" data-a="edit">✏️ 編輯</button>
-            <button class="btn warn" data-a="del" style="margin-left:auto">🗑️ 刪除</button>
+            <button class="btn" data-a="up" title="上移">↑ 上移</button>
+            <button class="btn" data-a="dn" title="下移">↓ 下移</button>
+            <button class="btn" data-a="edit">編輯</button>
+            <button class="btn warn" data-a="del" style="margin-left:auto">刪除</button>
           </div>
-        </div>
+        </article>
       `).join("")}
     </div>
+
     <button class="add edit-only" id="addi">＋ 新增這天的行程</button>
   `;
+  initReveal();
 }
 
 function itemForm(it, cb) {
   const mp = it.maps.map(x => (x.label ? x.label + "|" : "") + x.q).join("\n");
   $("dlgbody").innerHTML = `
-    <h2 style="margin:0">${it.title ? "編輯行程" : "新增行程"}</h2>
+    <h2 style="margin:0;font-size:22px;letter-spacing:-0.02em">${it.title ? "編輯行程" : "新增行程"}</h2>
     <div class="row">
       <div><label>圖示</label><input id="f_i" value="${esc(it.icon || "📌")}"></div>
       <div><label>時間</label><input id="f_t" value="${esc(it.time)}" placeholder="例：11:30"></div>
     </div>
     <label>標題</label><input id="f_n" value="${esc(it.title)}">
     <label>備註內容 <span class="hint">一行一項</span></label><textarea id="f_o">${esc(it.notes)}</textarea>
-    <label>Google 地圖 <span class="hint">一行一個：按鈕名稱|搜尋關鍵字</span></label><textarea id="f_m">${esc(mp)}</textarea>
+    <label>地圖導航 <span class="hint">一行一個：按鈕名稱|搜尋關鍵字</span></label><textarea id="f_m">${esc(mp)}</textarea>
     <div class="acts">
       <button class="btn" id="cx">取消</button>
       <button class="btn primary" id="ok">儲存</button>
@@ -772,7 +937,7 @@ function itemForm(it, cb) {
 
 function dayForm(d, isNew) {
   $("dlgbody").innerHTML = `
-    <h2 style="margin:0">${isNew ? "新增一天" : "編輯這一天"}</h2>
+    <h2 style="margin:0;font-size:22px;letter-spacing:-0.02em">${isNew ? "新增一天" : "編輯這一天"}</h2>
     <div class="row">
       <div><label>圖示</label><input id="g_e" value="${esc(d.emoji)}"></div>
       <div><label>日期</label><input id="g_d" value="${esc(d.date)}" placeholder="例：12/7（一）"></div>
@@ -814,11 +979,11 @@ document.addEventListener("click", e => {
   const t = e.target.closest("[data-t]");
   if (t) {
     if (t.dataset.t === "+") dayForm({ id: uid(), date: "", title: "", emoji: "📅", items: [] }, true);
-    else { cur = t.dataset.t; render(); scrollTo(0, 0); }
+    else { cur = t.dataset.t; render(); scrollTo({ top: 0, behavior: "smooth" }); }
     return;
   }
   const g = e.target.closest("[data-go]");
-  if (g) { cur = g.dataset.go; render(); scrollTo(0, 0); return; }
+  if (g) { cur = g.dataset.go; render(); scrollTo({ top: 0, behavior: "smooth" }); return; }
 
   const d = S.days.find(x => x.id === cur);
   if (e.target.id === "ed") return dayForm(d, false);
@@ -842,12 +1007,12 @@ document.addEventListener("click", e => {
     render();
   }
   if (e.target.id === "exp") {
-    $("dlgbody").innerHTML = `<h2 style="margin:0">備份行程</h2><p style="font-size:15px;color:var(--sub)">複製下方文字傳給家人，或貼到記事本保存。</p><textarea id="bx" style="min-height:180px" readonly>${esc(JSON.stringify(S))}</textarea><div class="acts"><button class="btn primary" id="cx">關閉</button></div>`;
+    $("dlgbody").innerHTML = `<h2 style="margin:0;font-size:22px">備份行程</h2><p style="font-size:14px;color:var(--sub)">複製下方文字傳給家人，或貼到記事本保存。</p><textarea id="bx" style="min-height:180px" readonly>${esc(JSON.stringify(S))}</textarea><div class="acts"><button class="btn primary" id="cx">關閉</button></div>`;
     $("dlg").showModal();
     $("cx").onclick = () => $("dlg").close();
   }
   if (e.target.id === "imp") {
-    $("dlgbody").innerHTML = `<h2 style="margin:0">還原備份</h2><p style="font-size:15px;color:var(--sub)">貼上之前複製的備份文字。</p><textarea id="bx" style="min-height:180px"></textarea><div class="acts"><button class="btn" id="cx">取消</button><button class="btn primary" id="ok">還原</button></div>`;
+    $("dlgbody").innerHTML = `<h2 style="margin:0;font-size:22px">還原備份</h2><p style="font-size:14px;color:var(--sub)">貼上之前複製的備份文字。</p><textarea id="bx" style="min-height:180px"></textarea><div class="acts"><button class="btn" id="cx">取消</button><button class="btn primary" id="ok">還原</button></div>`;
     $("dlg").showModal();
     $("cx").onclick = () => $("dlg").close();
     $("ok").onclick = () => {
@@ -863,8 +1028,8 @@ document.addEventListener("click", e => {
   }
 });
 
-$("editBanner").innerHTML = `<span>✏️ 目前為編輯模式</span><button onclick="toggleEditMode()">完成</button>`;
-$("toggleEdit").innerHTML = "✏️ 編輯模式";
+$("editBanner").innerHTML = `<span>編輯模式已開啟</span><button onclick="toggleEditMode()">完成</button>`;
+$("toggleEdit").innerHTML = "編輯模式";
 render();
 </script>
 </body>
