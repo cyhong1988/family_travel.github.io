@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>大阪・京都 家庭旅遊 12/2–12/6</title>
-<meta name="description" content="12/2（三）– 12/6（日）｜5 天 4 夜大阪・京都行程表與地圖導航">
+<meta name="description" content="12/2（三）– 12/6（日）｜5 天 4 夜大阪・京都行程表與順路精品咖啡地圖導航">
 <meta property="og:title" content="大阪・京都 家庭旅遊 12/2–12/6">
-<meta property="og:description" content="12/2（三）– 12/6（日）｜5 天 4 夜大阪・京都行程表與地圖導航">
+<meta property="og:description" content="12/2（三）– 12/6（日）｜5 天 4 夜大阪・京都行程表與順路精品咖啡地圖導航">
 <meta property="og:type" content="website">
 <style>
 :root {
@@ -20,6 +20,9 @@
   --accent: #0071e3;
   --accent-hover: #0077ed;
   --accent-soft: rgba(0, 113, 227, 0.1);
+  --coffee: #9a5b25;
+  --coffee-soft: rgba(154, 91, 37, 0.1);
+  --coffee-border: rgba(154, 91, 37, 0.22);
   --warm: #d93829;
   --ok: #34c759;
   --line: rgba(0, 0, 0, 0.08);
@@ -43,6 +46,9 @@
     --accent: #2997ff;
     --accent-hover: #40a3ff;
     --accent-soft: rgba(41, 151, 255, 0.16);
+    --coffee: #e09f5a;
+    --coffee-soft: rgba(224, 159, 90, 0.15);
+    --coffee-border: rgba(224, 159, 90, 0.28);
     --warm: #ff6961;
     --ok: #30d158;
     --line: rgba(255, 255, 255, 0.1);
@@ -145,7 +151,7 @@ body.is-editing {
   opacity: 0.9;
 }
 
-/* 毛玻璃分段導覽列 (Apple Segmented Control) */
+/* 毛玻璃分段導覽列 */
 .nav-wrap {
   position: sticky;
   top: env(safe-area-inset-top, 0px);
@@ -202,7 +208,7 @@ main {
   padding: 28px 18px 36px;
 }
 
-/* 隨顯滾動動畫 (Scroll Reveal) */
+/* 隨顯滾動動畫 */
 .reveal {
   opacity: 0;
   transform: translateY(26px) scale(0.985);
@@ -237,16 +243,6 @@ main {
   padding: 22px 24px;
   box-shadow: var(--shadow);
   transition: transform 0.35s var(--ease-apple), box-shadow 0.35s var(--ease-apple);
-}
-.bento-card.clickable {
-  cursor: pointer;
-}
-.bento-card.clickable:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-hover);
-}
-.bento-card.clickable:active {
-  transform: scale(0.98);
 }
 
 .bento-kicker {
@@ -331,6 +327,18 @@ main {
   font-weight: 700;
   letter-spacing: -0.015em;
   line-height: 1.35;
+}
+.day-coffee-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--coffee);
+  background: var(--coffee-soft);
+  padding: 2px 10px;
+  border-radius: 999px;
 }
 .day-chevron {
   margin-left: auto;
@@ -486,6 +494,116 @@ main {
   transform: scale(0.96);
 }
 
+/* 每日順路咖啡廳專屬區塊 */
+.coffee-section {
+  margin-top: 28px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--coffee-border);
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.coffee-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--coffee-soft) 0%, transparent 55%);
+  pointer-events: none;
+}
+.coffee-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.coffee-kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--coffee);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+.coffee-head h3 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.coffee-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+.coffee-item {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 16px 18px;
+  transition: transform 0.25s var(--ease-apple);
+}
+.coffee-item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.coffee-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+}
+.coffee-rating {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--coffee);
+  background: var(--coffee-soft);
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.coffee-meta {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--coffee);
+  margin-top: 4px;
+}
+.coffee-desc {
+  font-size: 14px;
+  color: var(--sub);
+  margin-top: 5px;
+  line-height: 1.55;
+}
+.coffee-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.coffee-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--coffee);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.coffee-map:hover { opacity: 0.9; }
+.coffee-map:active { transform: scale(0.96); }
+
 /* 編輯工具列與按鈕 */
 .btn {
   border: 1px solid var(--line);
@@ -585,7 +703,7 @@ body.is-editing .edit-only { display: flex !important; }
 body.is-editing button.edit-only { display: inline-flex !important; }
 body.is-editing button.add.edit-only { display: block !important; }
 
-/* Apple 風格彈出視窗 (Sheet / Modal) */
+/* Apple 風格彈出視窗 */
 dialog {
   border: 1px solid var(--line);
   border-radius: 28px;
@@ -638,8 +756,8 @@ textarea { min-height: 96px; }
 <header class="hero" id="hero">
   <div class="hero-eyebrow">OSAKA &amp; KYOTO 2026</div>
   <h1>大阪・京都 家庭旅遊 12/2–12/6</h1>
-  <p class="hero-sub">5 天 4 夜關西慢活之旅・專屬隨身行程指南</p>
-  <div class="hero-icons">⛩️ 🗼 🦀</div>
+  <p class="hero-sub">5 天 4 夜關西慢活之旅・專屬隨身行程與順路咖啡指南</p>
+  <div class="hero-icons">⛩️ ☕ 🦀</div>
 </header>
 
 <div class="nav-wrap">
@@ -656,113 +774,149 @@ textarea { min-height: 96px; }
 <dialog id="dlg"><div id="dlgbody"></div></dialog>
 
 <script>
-const KEY = "osaka-trip-apple-v2";
+const KEY = "osaka-trip-apple-v4";
 const INN = {
   label: "民宿：大阪民泊【山也居】",
   q: "大阪民泊【山也居】 2 Chome-14-30 Tengachayahigashi, Nishinari Ward, Osaka"
 };
 
 const DEF = [
-  {id:"d1",date:"12/2（三）",title:"大阪抵達・道頓堀・蟹道樂",emoji:"✈️",items:[
-    {id:"a1",time:"約 15:00",icon:"🛬",title:"大阪抵達・前往山也居辦理入住",notes:"抵達關西機場後，搭乘南海電鐵至天下茶屋站，步行前往「大阪民泊【山也居】」辦理入住\n地址：大阪市西成區天下茶屋東 2-14-30",maps:[
-      INN,
-      {label:"南海電鐵 天下茶屋站",q:"天下茶屋駅 大阪"}
-    ]},
-    {id:"a2",time:"16:30–18:30",icon:"🌃",title:"道頓堀夜遊・難波商圈逛街",notes:"從難波站一路往北逛至道頓堀運河：\n1. 難波 CITY / 高島屋 / 難波丸井百貨\n2. 戎橋筋商店街、千日前道具屋筋商店街（約 18:00 打烊）\n3. BicCamera / EDION 愛電王大型電器行\n4. 道頓堀運河、固力果跑跑人看板、法善寺橫丁、唐吉訶德",maps:[
-      {label:"道頓堀",q:"道頓堀 大阪"},
-      {label:"固力果跑跑人看板",q:"道頓堀グリコサイン"},
-      {label:"戎橋筋商店街",q:"戎橋筋商店街 大阪"},
-      {label:"法善寺橫丁",q:"法善寺横丁 大阪"},
-      {label:"千日前道具屋筋商店街",q:"千日前道具屋筋商店街 大阪"},
-      {label:"難波丸井百貨 (0101)",q:"なんばマルイ"},
-      {label:"難波 CITY",q:"なんばCITY"},
-      {label:"高島屋 大阪店",q:"大阪タカシマヤ"},
-      {label:"BicCamera 難波店",q:"ビックカメラ なんば店"},
-      {label:"EDION 愛電王 難波本店",q:"エディオン なんば本店"},
-      {label:"唐吉訶德 道頓堀店",q:"ドン・キホーテ 道頓堀店"}
-    ]},
-    {id:"a3",time:"18:30",icon:"🦀",title:"晚餐：蟹道樂 道頓堀東店",notes:"享用招牌松葉蟹、帝王蟹會席料理大餐\n地址：大阪市中央區道頓堀 1-1-3",maps:[
-      {label:"蟹道樂 道頓堀東店",q:"蟹道樂 道頓堀東店 大阪市中央区道頓堀1-1-3"}
-    ]}
-  ]},
-  {id:"d2",date:"12/3（四）",title:"燒肉屋大牧場・大阪城・水上觀光船・炭火串燒居酒屋",emoji:"🏯",items:[
-    {id:"b1",time:"12:00",icon:"🥩",title:"午餐：燒肉屋 大牧場 道頓堀店",notes:"享用日本國產和牛燒肉大餐（午間時段更划算）\n地址：大阪市中央區道頓堀 1-6-15 コムラード・ドウトンビル 5F",maps:[
-      {label:"燒肉屋 大牧場 道頓堀店",q:"燒肉屋 大牧場 道頓堀店 Osaka"}
-    ]},
-    {id:"b2",time:"14:00–16:00",icon:"🏯",title:"大阪城",notes:"參觀大阪城天守閣與大阪城公園",maps:[
-      {label:"大阪城天守閣",q:"大阪城天守閣"}
-    ]},
-    {id:"b3",time:"16:30–17:30",icon:"🚤",title:"水上觀光船",notes:"搭乘大阪水上巴士（Aqua-Liner）遊覽大川沿岸風光",maps:[
-      {label:"大阪城港（水上巴士乘船處）",q:"大阪城港 大阪水上バス"}
-    ]},
-    {id:"b4",time:"18:30",icon:"🍢",title:"晚餐：TOTTOTTO 難波千日前店",notes:"炭火串燒與新鮮海鮮單點居酒屋，自由點餐無負擔\n地址：大阪市中央區難波 3-4-14 岸田ビル 3F\n用餐後從難波站搭南海電鐵返回「大阪民泊【山也居】」",maps:[
-      {label:"TOTTOTTO 難波千日前店",q:"TOTTOTTO 難波千日前店 大阪市中央区難波3-4-14"},
-      {label:"南海電鐵 難波站",q:"南海難波駅"},
-      INN
-    ]}
-  ]},
-  {id:"d3",date:"12/4（五）",title:"京都一日遊：清水寺・祇園・伏見稻荷大社",emoji:"⛩️",items:[
-    {id:"c1",time:"08:30–10:15",icon:"🚃",title:"出發前往京都（京阪電車直達路線）",notes:"1. 08:30 從「大阪民泊【山也居】」步行至「天下茶屋站」\n2. 搭乘 Osaka Metro 堺筋線前往「北濱站」（車程約 11 分鐘）\n3. 站內轉乘「京阪電車（特急）」往出町柳方向，直達「祇園四條站」（車程約 48 分鐘，免進京都車站人擠人）",maps:[
-      INN,
-      {label:"天下茶屋站",q:"天下茶屋駅 大阪"},
-      {label:"北濱站（轉乘京阪電車）",q:"北浜駅 大阪"},
-      {label:"京阪 祇園四條站",q:"祇園四条駅 京都"}
-    ]},
-    {id:"c2",time:"10:15–12:45",icon:"🏯",title:"清水寺・二年坂・三年坂漫步",notes:"從祇園散步上山參拜世界遺產「清水寺」，遠眺京都市景與清水舞台\n回程沿著石板坡道「三年坂（產寧坂）」、「二年坂」逛老街、挑選清水燒與京菓子伴手禮",maps:[
-      {label:"清水寺",q:"清水寺 京都"},
-      {label:"三年坂（產寧坂）",q:"産寧坂 京都"},
-      {label:"二年坂",q:"二年坂 京都"}
-    ]},
-    {id:"c3",time:"13:00–14:30",icon:"🍜",title:"午餐：祇園・河原町商圈京都風味料理",notes:"下山後於祇園或四條河原町一帶享用京都午餐（推薦京料理、湯豆腐、鰻魚飯或抹茶蕎麥麵）",maps:[
-      {label:"四條河原町 午餐搜尋",q:"四条河原町 ランチ 京都"},
-      {label:"祇園 午餐搜尋",q:"祇園 ランチ 京都"}
-    ]},
-    {id:"c4",time:"14:45–16:00",icon:"🏮",title:"八坂神社・花見小路・鴨川散步",notes:"參拜祇園總本社「八坂神社」\n漫步充滿傳統木造町家風情的「花見小路」與白川南通\n至「鴨川四條大橋」吹風拍照，感受京都悠閒氛圍",maps:[
-      {label:"八坂神社",q:"八坂神社 京都"},
-      {label:"花見小路",q:"花見小路 京都"},
-      {label:"鴨川 四條大橋",q:"四条大橋 京都"}
-    ]},
-    {id:"c5",time:"16:15–18:00",icon:"🦊",title:"伏見稻荷大社（千本鳥居）",notes:"從京阪「祇園四條站」搭乘京阪本線往淀屋橋方向，約 10 分鐘直達「伏見稻荷站」\n參拜全日本稻荷神社總本宮，走訪壯觀的朱紅色「千本鳥居」（傍晚光影極美且人潮較少）",maps:[
-      {label:"伏見稻荷大社",q:"伏見稲荷大社 京都"},
-      {label:"京阪 伏見稻荷站",q:"伏見稲荷駅 京都"}
-    ]},
-    {id:"c6",time:"18:15–20:00",icon:"🏠",title:"返回大阪「山也居」民宿",notes:"1. 從京阪「伏見稻荷站」搭車至「丹波橋站」或「中書島站」同月台轉乘京阪特急，直達大阪「北濱站」（車程約 50 分鐘）\n2. 於「北濱站」轉乘地鐵堺筋線返回「天下茶屋站」（約 11 分鐘）\n3. 步行返回「大阪民泊【山也居】」，約 20:00 抵達休息",maps:[
-      {label:"北濱站（轉乘地鐵）",q:"北浜駅 大阪"},
-      {label:"天下茶屋站",q:"天下茶屋駅 大阪"},
-      INN
-    ]}
-  ]},
-  {id:"d4",date:"12/5（六）",title:"本町海鮮丼・心齋橋購物・爐端燒",emoji:"🛍️",items:[
-    {id:"e1",time:"11:30",icon:"🐟",title:"午餐：生鮪魚海鮮丼",notes:"從天下茶屋站搭地鐵前往本町站\n海鮮丼まぐろ丸 本店\n品嚐新鮮生鮪魚及海鮮丼",maps:[
-      {label:"まぐろ丸 本店",q:"海鮮丼まぐろ丸 本店 大阪"}
-    ]},
-    {id:"e2",time:"13:00–18:30",icon:"🛍️",title:"心齋橋、難波購物",notes:"沿途一路往南逛：\n1. 心齋橋筋商店街\n2. 大丸心齋橋百貨\n3. 心齋橋 PARCO\n4. 道頓堀\n5. 難波商圈",maps:[
-      {label:"心齋橋筋商店街",q:"心斎橋筋商店街"},
-      {label:"大丸心齋橋",q:"大丸心斎橋店"},
-      {label:"心齋橋 PARCO",q:"心斎橋PARCO"},
-      {label:"道頓堀",q:"道頓堀 大阪"},
-      {label:"難波商圈",q:"難波 大阪"}
-    ]},
-    {id:"e4",time:"19:30",icon:"🔥",title:"晚餐：爐端燒一新 難波店",notes:"體驗現烤日式爐端燒與新鮮海鮮料理\n地址：大阪市中央區難波 1-7-6 ニュー豊楽ビル 2F\n用餐後從難波站搭南海電鐵返回「大阪民泊【山也居】」",maps:[
-      {label:"爐端燒一新 難波店",q:"爐端燒一新 難波店 大阪市中央区難波1-7-6"},
-      {label:"南海電鐵 難波站",q:"南海難波駅"},
-      INN
-    ]}
-  ]},
-  {id:"d5",date:"12/6（日）",title:"返台（12:20 起飛 → 14:40 抵台）",emoji:"🛫",items:[
-    {id:"f1",time:"08:45",icon:"🚐",title:"退房・預約機場接送出發",notes:"08:45 於「大阪民泊【山也居】」門口集合上車\n搭乘預約專車直達關西國際機場（車程約 45–50 分鐘）",maps:[
-      INN
-    ]},
-    {id:"f2",time:"約 09:45–12:20",icon:"🛂",title:"關西國際機場・報到與免稅店採買",notes:"辦理登機報到、行李托運與出境安檢\n免稅店最後採買伴手禮，準備登機",maps:[
-      {label:"關西國際機場",q:"関西国際空港"}
-    ]},
-    {id:"f3",time:"12:20–14:40",icon:"✈️",title:"搭機返台（14:40 抵達台灣）",notes:"12:20 關西國際機場起飛\n14:40 平安抵達台灣，結束愉快的關西家庭旅遊",maps:[]}
-  ]}
+  {
+    id:"d1",date:"12/2（三）",title:"大阪抵達・道頓堀・蟹道樂",emoji:"✈️",
+    items:[
+      {id:"a1",time:"約 15:00",icon:"🛬",title:"大阪抵達・前往山也居辦理入住",notes:"抵達關西機場後，搭乘南海電鐵至天下茶屋站，步行前往「大阪民泊【山也居】」辦理入住\n地址：大阪市西成區天下茶屋東 2-14-30",maps:[
+        INN,
+        {label:"南海電鐵 天下茶屋站",q:"天下茶屋駅 大阪"}
+      ]},
+      {id:"a2",time:"16:30–18:30",icon:"🌃",title:"道頓堀夜遊・難波商圈逛街",notes:"從難波站一路往北逛至道頓堀運河：\n1. 難波 CITY / 高島屋 / 難波丸井百貨\n2. 戎橋筋商店街、千日前道具屋筋商店街（約 18:00 打烊）\n3. BicCamera / EDION 愛電王大型電器行\n4. 道頓堀運河、固力果跑跑人看板、法善寺橫丁、唐吉訶德",maps:[
+        {label:"道頓堀",q:"道頓堀 大阪"},
+        {label:"固力果跑跑人看板",q:"道頓堀グリコサイン"},
+        {label:"戎橋筋商店街",q:"戎橋筋商店街 大阪"},
+        {label:"法善寺橫丁",q:"法善寺横丁 大阪"},
+        {label:"千日前道具屋筋商店街",q:"千日前道具屋筋商店街 大阪"},
+        {label:"難波丸井百貨 (0101)",q:"なんばマルイ"},
+        {label:"難波 CITY",q:"なんばCITY"},
+        {label:"高島屋 大阪店",q:"大阪タカシマヤ"},
+        {label:"BicCamera 難波店",q:"ビックカメラ なんば店"},
+        {label:"EDION 愛電王 難波本店",q:"エディオン なんば本店"},
+        {label:"唐吉訶德 道頓堀店",q:"ドン・キホーテ 道頓堀店"}
+      ]},
+      {id:"a3",time:"18:30",icon:"🦀",title:"晚餐：蟹道樂 道頓堀東店",notes:"享用招牌松葉蟹、帝王蟹會席料理大餐\n地址：大阪市中央區道頓堀 1-1-3",maps:[
+        {label:"蟹道樂 道頓堀東店",q:"蟹道樂 道頓堀東店 大阪市中央区道頓堀1-1-3"}
+      ]}
+    ],
+    cafes:[
+      {id:"cf1",name:"Brooklyn Roasting Company Namba",rating:"4.4 ★",spot:"南海難波站高架下・步行 2 分鐘",desc:"空間寬敞明亮、座位充足，適合剛抵達大阪全家人歇腳喝杯拿鐵與可頌（營業至 20:00）。",q:"Brooklyn Roasting Company Namba 大阪"},
+      {id:"cf2",name:"LiLo Coffee Roasters",rating:"4.7 ★",spot:"心齋橋・道頓堀北側步行約 6 分鐘",desc:"大阪極具代表性的自家烘焙精品咖啡館，豆單豐富、手沖風味極佳（營業至 23:00，晚餐後散步也能喝）。",q:"LiLo Coffee Roasters 大阪"}
+    ]
+  },
+  {
+    id:"d2",date:"12/3（四）",title:"燒肉屋大牧場・大阪城・水上觀光船・炭火串燒居酒屋",emoji:"🏯",
+    items:[
+      {id:"b1",time:"12:00",icon:"🥩",title:"午餐：燒肉屋 大牧場 道頓堀店",notes:"享用日本國產和牛燒肉大餐（午間時段更划算）\n地址：大阪市中央區道頓堀 1-6-15 コムラード・ドウトンビル 5F",maps:[
+        {label:"燒肉屋 大牧場 道頓堀店",q:"燒肉屋 大牧場 道頓堀店 Osaka"}
+      ]},
+      {id:"b2",time:"14:00–16:00",icon:"🏯",title:"大阪城",notes:"參觀大阪城天守閣與大阪城公園",maps:[
+        {label:"大阪城天守閣",q:"大阪城天守閣"}
+      ]},
+      {id:"b3",time:"16:30–17:30",icon:"🚤",title:"水上觀光船",notes:"搭乘大阪水上巴士（Aqua-Liner）遊覽大川沿岸風光",maps:[
+        {label:"大阪城港（水上巴士乘船處）",q:"大阪城港 大阪水上バス"}
+      ]},
+      {id:"b4",time:"18:30",icon:"🍢",title:"晚餐：TOTTOTTO 難波千日前店",notes:"炭火串燒與新鮮海鮮單點居酒屋，自由點餐無負擔\n地址：大阪市中央區難波 3-4-14 岸田ビル 3F\n用餐後從難波站搭南海電鐵返回「大阪民泊【山也居】」",maps:[
+        {label:"TOTTOTTO 難波千日前店",q:"TOTTOTTO 難波千日前店 大阪市中央区難波3-4-14"},
+        {label:"南海電鐵 難波站",q:"南海難波駅"},
+        INN
+      ]}
+    ],
+    cafes:[
+      {id:"cf3",name:"AUN COFFEE ROASTERS",rating:"4.8 ★",spot:"早上 09:00 營業・南海難波站步行 5 分鐘",desc:"上午出門前往道頓堀吃燒肉前最順路的精品烘焙坊，手沖單品與義式拿鐵水準極高。",q:"AUN COFFEE ROASTERS 大阪"},
+      {id:"cf4",name:"R・J CAFE",rating:"4.6 ★",spot:"大阪城・天滿橋水岸旁",desc:"參觀大阪城公園或搭乘水上觀光船前後順路可訪，招牌「ECOPRESSO」是可以連同餅乾杯一起吃掉的濃縮咖啡。",q:"R・J CAFE 大阪市北区天満3-2-1"}
+    ]
+  },
+  {
+    id:"d3",date:"12/4（五）",title:"京都一日遊：清水寺・祇園・伏見稻荷大社",emoji:"⛩️",
+    items:[
+      {id:"c1",time:"08:30–10:15",icon:"🚃",title:"出發前往京都（京阪電車直達路線）",notes:"1. 08:30 從「大阪民泊【山也居】」步行至「天下茶屋站」\n2. 搭乘 Osaka Metro 堺筋線前往「北濱站」（車程約 11 分鐘）\n3. 站內轉乘「京阪電車（特急）」往出町柳方向，直達「祇園四條站」（車程約 48 分鐘，免進京都車站人擠人）",maps:[
+        INN,
+        {label:"天下茶屋站",q:"天下茶屋駅 大阪"},
+        {label:"北濱站（轉乘京阪電車）",q:"北浜駅 大阪"},
+        {label:"京阪 祇園四條站",q:"祇園四条駅 京都"}
+      ]},
+      {id:"c2",time:"10:15–12:45",icon:"🏯",title:"清水寺・二年坂・三年坂漫步",notes:"從祇園散步上山參拜世界遺產「清水寺」，遠眺京都市景與清水舞台\n回程沿著石板坡道「三年坂（產寧坂）」、「二年坂」逛老街、挑選清水燒與京菓子伴手禮",maps:[
+        {label:"清水寺",q:"清水寺 京都"},
+        {label:"三年坂（產寧坂）",q:"産寧坂 京都"},
+        {label:"二年坂",q:"二年坂 京都"}
+      ]},
+      {id:"c3",time:"13:00–14:30",icon:"🍜",title:"午餐：祇園・河原町商圈京都風味料理",notes:"下山後於祇園或四條河原町一帶享用京都午餐（推薦京料理、湯豆腐、鰻魚飯或抹茶蕎麥麵）",maps:[
+        {label:"四條河原町 午餐搜尋",q:"四条河原町 ランチ 京都"},
+        {label:"祇園 午餐搜尋",q:"祇園 ランチ 京都"}
+      ]},
+      {id:"c4",time:"14:45–16:00",icon:"🏮",title:"八坂神社・花見小路・鴨川散步",notes:"參拜祇園總本社「八坂神社」\n漫步充滿傳統木造町家風情的「花見小路」與白川南通\n至「鴨川四條大橋」吹風拍照，感受京都悠閒氛圍",maps:[
+        {label:"八坂神社",q:"八坂神社 京都"},
+        {label:"花見小路",q:"花見小路 京都"},
+        {label:"鴨川 四條大橋",q:"四条大橋 京都"}
+      ]},
+      {id:"c5",time:"16:15–18:00",icon:"🦊",title:"伏見稻荷大社（千本鳥居）",notes:"從京阪「祇園四條站」搭乘京阪本線往淀屋橋方向，約 10 分鐘直達「伏見稻荷站」\n參拜全日本稻荷神社總本宮，走訪壯觀的朱紅色「千本鳥居」（傍晚光影極美且人潮較少）",maps:[
+        {label:"伏見稻荷大社",q:"伏見稲荷大社 京都"},
+        {label:"京阪 伏見稻荷站",q:"伏見稲荷駅 京都"}
+      ]},
+      {id:"c6",time:"18:15–20:00",icon:"🏠",title:"返回大阪「山也居」民宿",notes:"1. 從京阪「伏見稻荷站」搭車至「丹波橋站」或「中書島站」同月台轉乘京阪特急，直達大阪「北濱站」（車程約 50 分鐘）\n2. 於「北濱站」轉乘地鐵堺筋線返回「天下茶屋站」（約 11 分鐘）\n3. 步行返回「大阪民泊【山也居】」，約 20:00 抵達休息",maps:[
+        {label:"北濱站（轉乘地鐵）",q:"北浜駅 大阪"},
+        {label:"天下茶屋站",q:"天下茶屋駅 大阪"},
+        INN
+      ]}
+    ],
+    cafes:[
+      {id:"cf11",name:"星巴克 京都二寧坂ヤサカ茶屋店",rating:"4.4 ★",spot:"二年坂石板老街中段・全球唯一榻榻米星巴克",desc:"由百年傳統京町家改建，掛著暖簾並設有日式榻榻米座席，逛二年坂時非常適合帶長輩進去體驗古都氛圍。",q:"スターバックス コーヒー 京都二寧坂ヤサカ茶屋店"},
+      {id:"cf5",name:"% ARABICA 京都東山店",rating:"4.3 ★",spot:"二年坂・八坂塔正前方（清水寺動線必經）",desc:"京都最具代表性的街拍咖啡地標，招牌京都拿鐵（Kyoto Latte）香醇滑順，適合走訪清水寺途中外帶一杯。",q:"% ARABICA 京都東山店"},
+      {id:"cf6",name:"Weekenders Coffee Tominokoji",rating:"4.7 ★",spot:"四條河原町午餐後步行約 5 分鐘",desc:"隱身在停車場深處的京町家秘境咖啡吧，庭園氛圍極具禪意，淺焙手沖咖啡品質頂尖。",q:"Weekenders Coffee Tominokoji 京都"},
+      {id:"cf7",name:"Vermillion - cafe.",rating:"4.7 ★",spot:"伏見稻荷大社・千本鳥居出口旁",desc:"參拜完伏見稻荷大社走下來就能休息的森林系露台咖啡廳，採用 Weekenders 咖啡豆，環境清幽舒適。",q:"Vermillion - cafe. 京都"}
+    ]
+  },
+  {
+    id:"d4",date:"12/5（六）",title:"本町海鮮丼・心齋橋購物・爐端燒",emoji:"🛍️",
+    items:[
+      {id:"e1",time:"11:30",icon:"🐟",title:"午餐：生鮪魚海鮮丼",notes:"從天下茶屋站搭地鐵前往本町站\n海鮮丼まぐろ丸 本店\n品嚐新鮮生鮪魚及海鮮丼",maps:[
+        {label:"まぐろ丸 本店",q:"海鮮丼まぐろ丸 本店 大阪"}
+      ]},
+      {id:"e2",time:"13:00–18:30",icon:"🛍️",title:"心齋橋、難波購物",notes:"沿途一路往南逛：\n1. 心齋橋筋商店街\n2. 大丸心齋橋百貨\n3. 心齋橋 PARCO\n4. 道頓堀\n5. 難波商圈",maps:[
+        {label:"心齋橋筋商店街",q:"心斎橋筋商店街"},
+        {label:"大丸心齋橋",q:"大丸心斎橋店"},
+        {label:"心齋橋 PARCO",q:"心斎橋PARCO"},
+        {label:"道頓堀",q:"道頓堀 大阪"},
+        {label:"難波商圈",q:"難波 大阪"}
+      ]},
+      {id:"e4",time:"19:30",icon:"🔥",title:"晚餐：爐端燒一新 難波店",notes:"體驗現烤日式爐端燒與新鮮海鮮料理\n地址：大阪市中央區難波 1-7-6 ニュー豊楽ビル 2F\n用餐後從難波站搭南海電鐵返回「大阪民泊【山也居】」",maps:[
+        {label:"爐端燒一新 難波店",q:"爐端燒一新 難波店 大阪市中央区難波1-7-6"},
+        {label:"南海電鐵 難波站",q:"南海難波駅"},
+        INN
+      ]}
+    ],
+    cafes:[
+      {id:"cf8",name:"Notequal Coffee",rating:"4.9 ★",spot:"早上 08:00 營業・本町「まぐろ丸」步行 3 分鐘",desc:"本町站周邊評價最高（4.9 星）的精品咖啡館，早上喝完咖啡散步 3 分鐘就能吃 11:30 的生鮪魚海鮮丼。",q:"Notequal Coffee 大阪市中央区久太郎町2-5-18"},
+      {id:"cf9",name:"CAFE TALES",rating:"4.8 ★",spot:"早上 08:00 營業・緊鄰 Notequal Coffee",desc:"座位寬敞舒適、對長輩與家庭客友善，除了精品咖啡外也提供豐富早午餐吐司與甜點。",q:"CAFE TALES 大阪市中央区久太郎町2-5-19"},
+      {id:"cf10",name:"SOT COFFEE ROASTER Shinsaibashi",rating:"4.7 ★",spot:"南船場 3 丁目・心齋橋購物動線起點",desc:"北歐簡約風格烘焙名店，主打淺中焙果香單品與巴斯克乳酪蛋糕，下午逛心齋橋 PARCO 前後順路可歇腳。",q:"SOT COFFEE ROASTER Shinsaibashi 大阪"}
+    ]
+  },
+  {
+    id:"d5",date:"12/6（日）",title:"返台（12:20 起飛 → 14:40 抵台）",emoji:"🛫",
+    items:[
+      {id:"f1",time:"08:45",icon:"🚐",title:"退房・預約機場接送出發",notes:"08:45 於「大阪民泊【山也居】」門口集合上車\n搭乘預約專車直達關西國際機場（車程約 45–50 分鐘）",maps:[
+        INN
+      ]},
+      {id:"f2",time:"約 09:45–12:20",icon:"🛂",title:"關西國際機場・報到與免稅店採買",notes:"辦理登機報到、行李托運與出境安檢\n免稅店最後採買伴手禮，準備登機",maps:[
+        {label:"關西國際機場",q:"関西国際空港"}
+      ]},
+      {id:"f3",time:"12:20–14:40",icon:"✈️",title:"搭機返台（14:40 抵達台灣）",notes:"12:20 關西國際機場起飛\n14:40 平安抵達台灣，結束愉快的關西家庭旅遊",maps:[]}
+    ],
+    cafes:[]
+  }
 ];
 
 let S;
 try { S = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
 if (!S || !S.days) S = { days: JSON.parse(JSON.stringify(DEF)), done: {} };
+S.days.forEach(d => { if (!Array.isArray(d.cafes)) d.cafes = []; });
 
 let cur = "sum";
 let isEditing = false;
@@ -773,7 +927,7 @@ const uid = () => "x" + Math.random().toString(36).slice(2, 9);
 const $ = id => document.getElementById(id);
 const url = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
 
-/* Apple 風格隨顯滾動觀察器 (IntersectionObserver) */
+/* Apple 風格隨顯滾動觀察器 */
 let io;
 function initReveal() {
   if (io) io.disconnect();
@@ -788,7 +942,7 @@ function initReveal() {
   }, { threshold: 0.08, rootMargin: "0px 0px -24px 0px" });
 
   els.forEach((el, idx) => {
-    el.style.transitionDelay = `${Math.min(idx * 55, 280)}ms`;
+    el.style.transitionDelay = `${Math.min(idx * 50, 260)}ms`;
     io.observe(el);
   });
 }
@@ -863,6 +1017,7 @@ function render() {
             <div style="min-width:0;flex:1">
               <div class="day-meta">DAY ${i + 1} ・ ${esc(d.date)}</div>
               <div class="day-name">${esc(d.title)}</div>
+              ${d.cafes && d.cafes.length ? `<div class="day-coffee-pill">☕ 含 ${d.cafes.length} 間順路高分咖啡推薦</div>` : ""}
             </div>
             <div class="day-chevron">›</div>
           </div>
@@ -883,6 +1038,7 @@ function render() {
   const di = S.days.findIndex(d => d.id === cur);
   if (di < 0) { cur = "sum"; return render(); }
   const d = S.days[di];
+  const hasCafes = d.cafes && d.cafes.length > 0;
 
   m.innerHTML = `
     <div class="dayhead reveal">
@@ -917,6 +1073,37 @@ function render() {
     </div>
 
     <button class="add edit-only" id="addi">＋ 新增這天的行程</button>
+
+    ${(hasCafes || isEditing) ? `
+      <section class="coffee-section reveal">
+        <div class="coffee-head">
+          <div>
+            <span class="coffee-kicker">CURATED COFFEE STOPS</span>
+            <h3>☕ 每日順路高評價咖啡廳</h3>
+          </div>
+          <button class="btn edit-only" id="addc" style="color:var(--coffee);border-color:var(--coffee-border)">＋ 新增咖啡廳</button>
+        </div>
+        ${hasCafes ? `
+          <div class="coffee-list">
+            ${d.cafes.map((c, ci) => `
+              <div class="coffee-item" data-ci="${ci}">
+                <div class="coffee-item-top">
+                  <div class="coffee-name">${esc(c.name)}</div>
+                  ${c.rating ? `<span class="coffee-rating">${esc(c.rating)}</span>` : ""}
+                </div>
+                ${c.spot ? `<div class="coffee-meta">🧭 ${esc(c.spot)}</div>` : ""}
+                ${c.desc ? `<div class="coffee-desc">${esc(c.desc)}</div>` : ""}
+                <div class="coffee-actions">
+                  ${c.q ? `<a class="coffee-map" target="_blank" rel="noopener" href="${esc(url(c.q))}">📍 開啟地圖導航</a>` : ""}
+                  <button class="btn edit-only" data-ca="edit" style="margin-left:auto">編輯</button>
+                  <button class="btn warn edit-only" data-ca="del">刪除</button>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        ` : `<p style="font-size:14px;color:var(--sub);margin:0">這天目前沒有設定咖啡廳，點擊右上角可新增推薦店家。</p>`}
+      </section>
+    ` : ""}
   `;
   initReveal();
 }
@@ -949,6 +1136,38 @@ function itemForm(it, cb) {
         const p = s.split("|");
         return p.length > 1 ? { label: p[0].trim(), q: p.slice(1).join("|").trim() } : { label: "", q: s };
       })
+    });
+    save();
+    $("dlg").close();
+    render();
+  };
+}
+
+function cafeForm(c, cb) {
+  $("dlgbody").innerHTML = `
+    <h2 style="margin:0;font-size:22px;letter-spacing:-0.02em">${c.name ? "編輯順路咖啡廳" : "新增順路咖啡廳"}</h2>
+    <div class="row">
+      <div><label>Google 評分</label><input id="c_r" value="${esc(c.rating || "4.8 ★")}" placeholder="例：4.8 ★"></div>
+      <div><label>咖啡廳名稱</label><input id="c_n" value="${esc(c.name)}" placeholder="例：Notequal Coffee"></div>
+    </div>
+    <label>順路位置 / 營業時間提示</label><input id="c_s" value="${esc(c.spot)}" placeholder="例：本町站步行 3 分鐘・08:00 營業">
+    <label>推薦理由</label><textarea id="c_d" placeholder="例：手沖單品水準極高，適合早餐歇腳">${esc(c.desc)}</textarea>
+    <label>Google 地圖搜尋關鍵字</label><input id="c_q" value="${esc(c.q)}" placeholder="店名＋大阪或京都">
+    <div class="acts">
+      <button class="btn" id="cx">取消</button>
+      <button class="btn primary" id="ok">儲存</button>
+    </div>
+  `;
+  $("dlg").showModal();
+  $("cx").onclick = () => $("dlg").close();
+  $("ok").onclick = () => {
+    const name = $("c_n").value.trim() || "（未命名咖啡廳）";
+    cb({
+      rating: $("c_r").value.trim(),
+      name,
+      spot: $("c_s").value.trim(),
+      desc: $("c_d").value.trim(),
+      q: $("c_q").value.trim() || name
     });
     save();
     $("dlg").close();
@@ -994,12 +1213,15 @@ function dayForm(d, isNew) {
   };
 }
 
-$("toggleEdit").onclick = toggleEditMode;
+$("toggleEdit").onclick = () => {
+  toggleEditMode();
+  render();
+};
 
 document.addEventListener("click", e => {
   const t = e.target.closest("[data-t]");
   if (t) {
-    if (t.dataset.t === "+") dayForm({ id: uid(), date: "", title: "", emoji: "📅", items: [] }, true);
+    if (t.dataset.t === "+") dayForm({ id: uid(), date: "", title: "", emoji: "📅", items: [], cafes: [] }, true);
     else { cur = t.dataset.t; render(); scrollTo({ top: 0, behavior: "smooth" }); }
     return;
   }
@@ -1009,6 +1231,7 @@ document.addEventListener("click", e => {
   const d = S.days.find(x => x.id === cur);
   if (e.target.id === "ed") return dayForm(d, false);
   if (e.target.id === "addi") return itemForm({ icon: "📌", time: "", title: "", notes: "", maps: [] }, v => d.items.push({ id: uid(), ...v }));
+  if (e.target.id === "addc") return cafeForm({ rating: "4.8 ★", name: "", spot: "", desc: "", q: "" }, v => d.cafes.push({ id: uid(), ...v }));
 
   const a = e.target.closest("[data-a]");
   if (a && d) {
@@ -1020,6 +1243,13 @@ document.addEventListener("click", e => {
       const j = k === "up" ? i - 1 : i + 1;
       if (j >= 0 && j < d.items.length) { [d.items[i], d.items[j]] = [d.items[j], d.items[i]]; save(); render(); }
     }
+  }
+
+  const ca = e.target.closest("[data-ca]");
+  if (ca && d) {
+    const ci = +ca.closest(".coffee-item").dataset.ci, c = d.cafes[ci], k = ca.dataset.ca;
+    if (k === "edit") cafeForm(c, v => Object.assign(c, v));
+    else if (k === "del") { if (confirm("確定刪除咖啡廳「" + c.name + "」？")) { d.cafes.splice(ci, 1); save(); render(); } }
   }
 
   if (e.target.id === "rst" && confirm("所有修改都會消失，確定恢復？")) {
@@ -1040,6 +1270,7 @@ document.addEventListener("click", e => {
       try {
         const n = JSON.parse($("bx").value);
         if (!n.days) throw 0;
+        n.days.forEach(x => { if (!Array.isArray(x.cafes)) x.cafes = []; });
         S = n;
         save();
         $("dlg").close();
@@ -1049,7 +1280,8 @@ document.addEventListener("click", e => {
   }
 });
 
-$("editBanner").innerHTML = `<span>編輯模式已開啟</span><button onclick="toggleEditMode()">完成</button>`;
+$("editBanner").innerHTML = `<span>編輯模式已開啟</span><button id="bannerDone">完成</button>`;
+$("bannerDone").onclick = () => { toggleEditMode(); render(); };
 $("toggleEdit").innerHTML = "編輯模式";
 render();
 </script>
