@@ -666,6 +666,58 @@ main {
   margin-top: 24px;
 }
 
+/* Apple 風格懸浮向下捲動提示膠囊 */
+.scroll-cue {
+  position: fixed;
+  left: 50%;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  transform: translate(-50%, 18px) scale(0.96);
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(29, 29, 31, 0.84);
+  color: #fff;
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-apple), transform 0.35s var(--ease-apple);
+}
+@media (prefers-color-scheme: dark) {
+  .scroll-cue {
+    background: rgba(245, 245, 247, 0.88);
+    color: #1d1d1f;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  }
+}
+.scroll-cue.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+.scroll-cue:active {
+  transform: translate(-50%, 0) scale(0.95);
+}
+.scroll-cue-arrow {
+  display: inline-block;
+  animation: cueBounce 1.6s ease-in-out infinite;
+}
+@keyframes cueBounce {
+  0%, 100% { transform: translateY(-1.5px); }
+  50% { transform: translateY(2.5px); }
+}
+
 /* 頁面最底部的極簡頁尾與編輯模式切換 */
 .page-footer {
   max-width: 720px;
@@ -771,6 +823,8 @@ textarea { min-height: 96px; }
 
 <main id="main"></main>
 
+<button class="scroll-cue" id="scrollCue" aria-label="向下捲動看更多"></button>
+
 <footer class="page-footer">
   <div class="footer-note">Designed for Family Journey ・ 點擊地點按鈕可直接開啟 Apple / Google 地圖導航</div>
   <button class="bottom-edit-btn" id="toggleEdit" aria-label="切換編輯模式"></button>
@@ -818,7 +872,7 @@ const DEF = [
   {
     id:"d2",date:"12/3（四）",title:"黑門市場・燒肉屋大牧場・大阪城・水上觀光船",emoji:"🏯",
     items:[
-      {id:"b0",time:"09:30–11:30",icon:"🏮",title:"逛當地市場：黑門市場",notes:"從天下茶屋站搭地鐵堺筋線直達「日本橋站」，步行 2 分鐘即達「大阪廚房」黑門市場\n整條街都有遮雨棚、路面平坦好走，逛逛傳統乾貨、和菓子與現烤海鮮小點，逛完步行 6 分鐘即可去道頓堀吃午餐",maps:[
+      {id:"b0",time:"09:30–11:30",icon:"🏮",title:"逛當地市場：黑門市場",notes:"從天下茶屋站搭地鐵堺筋線直達「日本橋站」，步行 2 分鐘即達「大阪廚房」黑門市場\n整條街都有遮雨棚、路面平坦好走，帶媽媽逛傳統乾貨、和菓子與現烤海鮮小點，逛完步行 6 分鐘即可去道頓堀吃午餐",maps:[
         {label:"黑門市場",q:"黒門市場 大阪"},
         {label:"地鐵 日本橋站",q:"日本橋駅 大阪"}
       ]},
@@ -856,7 +910,7 @@ const DEF = [
         {label:"三年坂（產寧坂）",q:"産寧坂 京都"},
         {label:"二年坂",q:"二年坂 京都"}
       ]},
-      {id:"c3",time:"13:00–14:45",icon:"🧺",title:"午餐＆逛當地市場：錦市場（京都廚房）",notes:"下山後於四條河原町一帶享用京都午餐，接著散步 3 分鐘逛擁有四百年歷史的「錦市場」\n整條有遮雨棚，逛逛傳統京漬物、現煎玉子燒、豆乳甜甜圈與京都乾貨伴手禮",maps:[
+      {id:"c3",time:"13:00–14:45",icon:"🧺",title:"午餐＆逛當地市場：錦市場（京都廚房）",notes:"下山後於四條河原町一帶享用京都午餐，接著散步 3 分鐘逛擁有四百年歷史的「錦市場」\n整條有遮雨棚，帶媽媽逛傳統京漬物、現煎玉子燒、豆乳甜甜圈與京都乾貨伴手禮",maps:[
         {label:"錦市場",q:"錦市場 京都"},
         {label:"四條河原町 午餐搜尋",q:"四条河原町 ランチ 京都"}
       ]},
@@ -885,7 +939,7 @@ const DEF = [
   {
     id:"d4",date:"12/5（六）",title:"木津市場・本町海鮮丼・心齋橋購物・爐端燒",emoji:"🛍️",
     items:[
-      {id:"e0",time:"08:45–10:45",icon:"🍎",title:"逛當地早市：木津市場（大阪木津卸売市場）",notes:"距離民宿超近！從天下茶屋站搭車僅 1–2 站（約 4 分鐘）至「大國町站」步行 3 分鐘\n大阪在地家庭主婦與餐廳主廚採買的批發早市，環境乾淨明亮，逛逛日本當季草莓、蜜柑、乾貨與海鮮\n逛完直接從「大國町站」搭地鐵御堂筋線直達「本町站」吃午餐",maps:[
+      {id:"e0",time:"08:45–10:45",icon:"🍎",title:"逛當地早市：木津市場（大阪木津卸売市場）",notes:"距離民宿超近！從天下茶屋站搭車僅 1–2 站（約 4 分鐘）至「大國町站」步行 3 分鐘\n大阪在地家庭主婦與餐廳主廚採買的批發早市，環境乾淨明亮，帶媽媽逛日本當季草莓、蜜柑、乾貨與海鮮\n逛完直接從「大國町站」搭地鐵御堂筋線直達「本町站」吃午餐",maps:[
         {label:"木津市場",q:"大阪木津卸売市場"},
         {label:"地鐵 大國町站",q:"大国町駅 大阪"}
       ]},
@@ -940,6 +994,19 @@ const uid = () => "x" + Math.random().toString(36).slice(2, 9);
 const $ = id => document.getElementById(id);
 const url = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
 
+/* 懸浮向下捲動提示控制 */
+function updateScrollCue() {
+  const cue = $("scrollCue");
+  if (!cue) return;
+  const docHeight = document.documentElement.scrollHeight;
+  const winHeight = window.innerHeight;
+  const scrollY = window.scrollY;
+  const hasMoreBelow = docHeight - winHeight > 140;
+  const isNearTop = scrollY < 70;
+  const isAtBottom = scrollY + winHeight >= docHeight - 60;
+  cue.classList.toggle("show", hasMoreBelow && isNearTop && !isAtBottom);
+}
+
 /* Apple 風格隨顯滾動觀察器 */
 let io;
 function initReveal() {
@@ -958,10 +1025,12 @@ function initReveal() {
     el.style.transitionDelay = `${Math.min(idx * 50, 260)}ms`;
     io.observe(el);
   });
+  requestAnimationFrame(updateScrollCue);
 }
 
-/* Hero 滾動微視差 */
+/* Hero 滾動微視差 + 捲動提示偵測 */
 window.addEventListener("scroll", () => {
+  updateScrollCue();
   const hero = $("hero");
   if (!hero) return;
   const y = window.scrollY;
@@ -971,6 +1040,7 @@ window.addEventListener("scroll", () => {
     hero.style.opacity = `${1 - progress * 0.65}`;
   }
 }, { passive: true });
+window.addEventListener("resize", updateScrollCue, { passive: true });
 
 function toggleEditMode() {
   isEditing = !isEditing;
@@ -1231,6 +1301,10 @@ $("toggleEdit").onclick = () => {
   render();
 };
 
+$("scrollCue").onclick = () => {
+  window.scrollBy({ top: Math.round(window.innerHeight * 0.65), behavior: "smooth" });
+};
+
 document.addEventListener("click", e => {
   const t = e.target.closest("[data-t]");
   if (t) {
@@ -1293,6 +1367,7 @@ document.addEventListener("click", e => {
   }
 });
 
+$("scrollCue").innerHTML = `<span>向下滑動看更多</span><span class="scroll-cue-arrow">↓</span>`;
 $("editBanner").innerHTML = `<span>編輯模式已開啟</span><button id="bannerDone">完成</button>`;
 $("bannerDone").onclick = () => { toggleEditMode(); render(); };
 $("toggleEdit").innerHTML = "編輯模式";
