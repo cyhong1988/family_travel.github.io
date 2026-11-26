@@ -1,1 +1,19 @@
+function doGet(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  const data = sheet.getDataRange().getValues();
+  const result = {};
+
+  data.forEach(row => {
+    const rawCode = String(row[0]).replace(/^TPE:/i, '').trim();
+    if (rawCode && row[1]) {
+      result[rawCode] = {
+        price: Number(row[1]),
+        prevClose: Number(row[2]) || Number(row[1])
+      };
+    }
+  });
+
+  return ContentService.createTextOutput(JSON.stringify(result))
+    .setMimeType(ContentService.MimeType.JSON);
+}
 
