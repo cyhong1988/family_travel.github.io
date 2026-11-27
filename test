@@ -1,45 +1,51 @@
+const SHEET_NAME = "TripData";
+
+function getOrCreateSheet() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME);
+    sheet.getRange("A1:B1").setValues([["UpdatedAt", "JSON"]]);
+  }
+  return sheet;
+}
+
+// 讀取最新行程資料
 function doGet(e) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-  const data = sheet.getDataRange().getValues();
-  
-  // 1. 收集 A 欄所有股票代號，組成證交所查詢字串 (上市 tse_ 與 上櫃 otc_ 同時查)
-  const codes = [];
-  const queryList = [];
-  data.forEach(row => {
-    const code = String(row[0]).replace(/^TPE:/i, '').trim();
-    if (code) {
-      codes.push(code);
-      queryList.push(`tse_${code}.tw`, `otc_${code}.tw`);
-    }
-  });
+  const sheet = getOrCreateSheet();
+  const jsonStr = sheet.getRange("B2").getValue();
+  const updatedAt = sheet.getRange("A2").getValue();
 
-  if (queryList.length === 0) {
-    return ContentService.createTextOutput('{}').setMimeType(ContentService.MimeType.JSON);
-  }
-
-  // 2. 直接向台灣證交所即時報價 API 請求最新成交價
-  const url = `https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=${queryList.join('|')}&json=1&delay=0`;
-  const response = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
-  const json = JSON.parse(response.getContentText());
-  
-  const result = {};
-  if (json && json.msgArray) {
-    json.msgArray.forEach(item => {
-      const code = item.c; // 股票代號
-      const prevClose = parseFloat(item.y); // 昨收價
-      // z 為當盤最新成交價；若剛開盤或集合競價尚未成交(顯示'-')，則取最佳買價(b)或昨收
-      let price = parseFloat(item.z);
-      if (isNaN(price) && item.b) {
-        price = parseFloat(item.b.split('_')[0]);
-      }
-      if (isNaN(price)) price = prevClose;
-
-      if (code && !isNaN(price) && price > 0) {
-        result[code] = { price: price, prevClose: prevClose || price };
-      }
-    });
-  }
+  const result = jsonStr
+    ? { status: "ok", updatedAt: updatedAt, data: JSON.parse(jsonStr) }
+    : { status: "empty" };
 
   return ContentService.createTextOutput(JSON.stringify(result))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// 寫入／更新行程資料（使用 LockService 避免多人同時寫入衝突）
+function doPost(e) {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+
+  try {
+    const payload = e.postData ? e.postData.contents : "";
+    const parsed = JSON.parse(payload);
+    const sheet = getOrCreateSheet();
+    const now = new Date().toISOString();
+
+    sheet.getRange("A2").setValue(now);
+    sheet.getRange("B2").setValue(JSON.stringify(parsed));
+
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "ok", updatedAt: now })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "error", message: err.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
 }
