@@ -152,6 +152,53 @@ body.is-editing {
   opacity: 0.9;
 }
 
+/* 雲端同步狀態膠囊 */
+.sync-bar {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sub);
+  box-shadow: var(--shadow);
+}
+.sync-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ok);
+  flex-shrink: 0;
+}
+.sync-dot.syncing {
+  background: var(--accent);
+  animation: pulseDot 1s infinite ease-in-out;
+}
+.sync-dot.err {
+  background: var(--warm);
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+.sync-refresh {
+  border: 0;
+  background: var(--bg-pill);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 2px 9px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.sync-refresh:active { transform: scale(0.92); }
+
 /* 毛玻璃分段導覽列 */
 .nav-wrap {
   position: sticky;
@@ -815,6 +862,13 @@ textarea { min-height: 96px; }
   <h1>大阪・京都 家庭旅遊 12/2–12/6</h1>
   <p class="hero-sub">5 天 4 夜關西慢活之旅・專屬隨身行程與順路咖啡指南</p>
   <div class="hero-icons">⛩️ ☕ 🦀</div>
+  <div>
+    <div class="sync-bar">
+      <span class="sync-dot syncing" id="syncDot"></span>
+      <span id="syncText">連線雲端中...</span>
+      <button class="sync-refresh" id="syncNow" title="立即從雲端更新">🔄 同步</button>
+    </div>
+  </div>
 </header>
 
 <div class="nav-wrap">
@@ -833,6 +887,8 @@ textarea { min-height: 96px; }
 <dialog id="dlg"><div id="dlgbody"></div></dialog>
 
 <script>
+const GAS_URL = "https://script.google.com/macros/s/AKfycbyqCHZfXYbRsBWuavINxWGV_3crbMlEqMJeK-p8RkyTFdbKOPMxQTBZVNYUgApPUfF_/exec";
+
 const KEY = "osaka-trip-apple-v7";
 const INN = {
   label: "民宿：大阪民泊【山也居】",
@@ -987,12 +1043,91 @@ S.days.forEach(d => { if (!Array.isArray(d.cafes)) d.cafes = []; });
 
 let cur = "sum";
 let isEditing = false;
+let isSyncing = false;
+let lastCloudUpdated = "";
 
-const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const uid = () => "x" + Math.random().toString(36).slice(2, 9);
 const $ = id => document.getElementById(id);
 const url = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+
+function setSyncStatus(state, text) {
+  const dot = $("syncDot");
+  const label = $("syncText");
+  if (!dot || !label) return;
+  dot.className = "sync-dot" + (state === "syncing" ? " syncing" : state === "err" ? " err" : "");
+  label.textContent = text;
+}
+
+function formatTimeShort(iso) {
+  if (!iso) return "";
+  try {
+    const d = new Date(iso);
+    return d.toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit", hour12: false });
+  } catch (e) { return ""; }
+}
+
+const isGasConfigured = () => GAS_URL && GAS_URL.startsWith("https://script.google.com/");
+
+/* 儲存本機並同步上傳至 GAS 雲端 */
+async function save(pushCloud = true) {
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+  if (!pushCloud || !isGasConfigured()) return;
+
+  setSyncStatus("syncing", "同步儲存中...");
+  try {
+    const res = await fetch(GAS_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(S)
+    });
+    const json = await res.json();
+    if (json.status === "ok") {
+      lastCloudUpdated = json.updatedAt || "";
+      setSyncStatus("ok", `雲端已同步 ${formatTimeShort(lastCloudUpdated)}`);
+    } else {
+      throw new Error(json.message || "寫入失敗");
+    }
+  } catch (err) {
+    console.error(err);
+    setSyncStatus("err", "雲端同步失敗（已暫存本機）");
+  }
+}
+
+/* 從 GAS 雲端拉取最新行程 */
+async function loadFromCloud(silent = false) {
+  if (!isGasConfigured()) {
+    setSyncStatus("err", "尚未設定 GAS 網址（目前為本機模式）");
+    return;
+  }
+  if (isSyncing) return;
+  isSyncing = true;
+  if (!silent) setSyncStatus("syncing", "正在讀取最新行程...");
+
+  try {
+    const res = await fetch(GAS_URL + "?t=" + Date.now());
+    const json = await res.json();
+
+    if (json.status === "ok" && json.data && Array.isArray(json.data.days)) {
+      json.data.days.forEach(d => { if (!Array.isArray(d.cafes)) d.cafes = []; });
+      if (!json.data.done) json.data.done = {};
+
+      const changed = JSON.stringify(S) !== JSON.stringify(json.data);
+      S = json.data;
+      lastCloudUpdated = json.updatedAt || "";
+      try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+      if (changed) render();
+      setSyncStatus("ok", `雲端已同步 ${formatTimeShort(lastCloudUpdated)}`);
+    } else if (json.status === "empty") {
+      await save(true);
+    }
+  } catch (err) {
+    console.error(err);
+    setSyncStatus("err", "無法連線雲端（顯示本機快取）");
+  } finally {
+    isSyncing = false;
+  }
+}
 
 /* 懸浮向下捲動提示控制 */
 function updateScrollCue() {
@@ -1112,7 +1247,7 @@ function render() {
         <button class="btn" id="imp">還原備份</button>
         <button class="btn warn" id="rst">重置為預設行程</button>
       </div>
-      <p class="edit-only" style="justify-content:center;color:var(--tertiary);font-size:12px;margin-top:10px">編輯模式已開啟・所有變更自動儲存於本機瀏覽器</p>
+      <p class="edit-only" style="justify-content:center;color:var(--tertiary);font-size:12px;margin-top:10px">編輯模式已開啟・所有變更自動同步至 Google 試算表</p>
     `;
     initReveal();
     return;
@@ -1204,7 +1339,7 @@ function itemForm(it, cb) {
     <label>地圖導航 <span class="hint">一行一個：按鈕名稱|搜尋關鍵字</span></label><textarea id="f_m">${esc(mp)}</textarea>
     <div class="acts">
       <button class="btn" id="cx">取消</button>
-      <button class="btn primary" id="ok">儲存</button>
+      <button class="btn primary" id="ok">儲存並同步</button>
     </div>
   `;
   $("dlg").showModal();
@@ -1220,7 +1355,7 @@ function itemForm(it, cb) {
         return p.length > 1 ? { label: p[0].trim(), q: p.slice(1).join("|").trim() } : { label: "", q: s };
       })
     });
-    save();
+    save(true);
     $("dlg").close();
     render();
   };
@@ -1238,7 +1373,7 @@ function cafeForm(c, cb) {
     <label>Google 地圖搜尋關鍵字</label><input id="c_q" value="${esc(c.q)}" placeholder="店名＋大阪或京都">
     <div class="acts">
       <button class="btn" id="cx">取消</button>
-      <button class="btn primary" id="ok">儲存</button>
+      <button class="btn primary" id="ok">儲存並同步</button>
     </div>
   `;
   $("dlg").showModal();
@@ -1252,7 +1387,7 @@ function cafeForm(c, cb) {
       desc: $("c_d").value.trim(),
       q: $("c_q").value.trim() || name
     });
-    save();
+    save(true);
     $("dlg").close();
     render();
   };
@@ -1269,7 +1404,7 @@ function dayForm(d, isNew) {
     <div class="acts">
       ${isNew ? "" : `<button class="btn warn" id="gdel" style="margin-right:auto">刪除這天</button>`}
       <button class="btn" id="cx">取消</button>
-      <button class="btn primary" id="ok">儲存</button>
+      <button class="btn primary" id="ok">儲存並同步</button>
     </div>
   `;
   $("dlg").showModal();
@@ -1279,7 +1414,7 @@ function dayForm(d, isNew) {
       if (confirm("確定刪除整天行程？")) {
         S.days = S.days.filter(x => x !== d);
         cur = "sum";
-        save();
+        save(true);
         $("dlg").close();
         render();
       }
@@ -1290,7 +1425,7 @@ function dayForm(d, isNew) {
     d.date = $("g_d").value;
     d.title = $("g_t").value || "新的一天";
     if (isNew) { S.days.push(d); cur = d.id; }
-    save();
+    save(true);
     $("dlg").close();
     render();
   };
@@ -1300,6 +1435,17 @@ $("toggleEdit").onclick = () => {
   toggleEditMode();
   render();
 };
+
+$("syncNow").onclick = () => {
+  loadFromCloud(false);
+};
+
+// 切回手機瀏覽器分頁時自動檢查雲端是否有家人更新
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && !isEditing) {
+    loadFromCloud(true);
+  }
+});
 
 $("scrollCue").onclick = () => {
   window.scrollBy({ top: Math.round(window.innerHeight * 0.65), behavior: "smooth" });
@@ -1323,12 +1469,12 @@ document.addEventListener("click", e => {
   const a = e.target.closest("[data-a]");
   if (a && d) {
     const i = +a.closest(".card").dataset.i, it = d.items[i], k = a.dataset.a;
-    if (k === "done") { S.done[it.id] = !S.done[it.id]; save(); render(); }
+    if (k === "done") { S.done[it.id] = !S.done[it.id]; save(true); render(); }
     else if (k === "edit") itemForm(it, v => Object.assign(it, v));
-    else if (k === "del") { if (confirm("確定刪除「" + it.title + "」？")) { d.items.splice(i, 1); save(); render(); } }
+    else if (k === "del") { if (confirm("確定刪除「" + it.title + "」？")) { d.items.splice(i, 1); save(true); render(); } }
     else {
       const j = k === "up" ? i - 1 : i + 1;
-      if (j >= 0 && j < d.items.length) { [d.items[i], d.items[j]] = [d.items[j], d.items[i]]; save(); render(); }
+      if (j >= 0 && j < d.items.length) { [d.items[i], d.items[j]] = [d.items[j], d.items[i]]; save(true); render(); }
     }
   }
 
@@ -1336,12 +1482,12 @@ document.addEventListener("click", e => {
   if (ca && d) {
     const ci = +ca.closest(".coffee-item").dataset.ci, c = d.cafes[ci], k = ca.dataset.ca;
     if (k === "edit") cafeForm(c, v => Object.assign(c, v));
-    else if (k === "del") { if (confirm("確定刪除咖啡廳「" + c.name + "」？")) { d.cafes.splice(ci, 1); save(); render(); } }
+    else if (k === "del") { if (confirm("確定刪除咖啡廳「" + c.name + "」？")) { d.cafes.splice(ci, 1); save(true); render(); } }
   }
 
-  if (e.target.id === "rst" && confirm("所有修改都會消失，確定恢復？")) {
+  if (e.target.id === "rst" && confirm("雲端與所有人的行程都會恢復為預設值，確定恢復？")) {
     S = { days: JSON.parse(JSON.stringify(DEF)), done: {} };
-    save();
+    save(true);
     render();
   }
   if (e.target.id === "exp") {
@@ -1350,7 +1496,7 @@ document.addEventListener("click", e => {
     $("cx").onclick = () => $("dlg").close();
   }
   if (e.target.id === "imp") {
-    $("dlgbody").innerHTML = `<h2 style="margin:0;font-size:22px">還原備份</h2><p style="font-size:14px;color:var(--sub)">貼上之前複製的備份文字。</p><textarea id="bx" style="min-height:180px"></textarea><div class="acts"><button class="btn" id="cx">取消</button><button class="btn primary" id="ok">還原</button></div>`;
+    $("dlgbody").innerHTML = `<h2 style="margin:0;font-size:22px">還原備份</h2><p style="font-size:14px;color:var(--sub)">貼上之前複製的備份文字（還原後會同步覆蓋雲端）。</p><textarea id="bx" style="min-height:180px"></textarea><div class="acts"><button class="btn" id="cx">取消</button><button class="btn primary" id="ok">還原並同步</button></div>`;
     $("dlg").showModal();
     $("cx").onclick = () => $("dlg").close();
     $("ok").onclick = () => {
@@ -1359,7 +1505,7 @@ document.addEventListener("click", e => {
         if (!n.days) throw 0;
         n.days.forEach(x => { if (!Array.isArray(x.cafes)) x.cafes = []; });
         S = n;
-        save();
+        save(true);
         $("dlg").close();
         render();
       } catch (_) { alert("格式不正確，請確認是否完整複製"); }
@@ -1371,7 +1517,10 @@ $("scrollCue").innerHTML = `<span>向下滑動看更多</span><span class="scrol
 $("editBanner").innerHTML = `<span>編輯模式已開啟</span><button id="bannerDone">完成</button>`;
 $("bannerDone").onclick = () => { toggleEditMode(); render(); };
 $("toggleEdit").innerHTML = "編輯模式";
+
+// 先渲染本機快取畫面，再背景同步雲端最新資料
 render();
+loadFromCloud(false);
 </script>
 </body>
 </html>
